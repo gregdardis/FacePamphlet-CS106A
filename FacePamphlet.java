@@ -38,8 +38,6 @@ public class FacePamphlet extends ConsoleProgram
 		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
-		
-//		addActionListeners();
     }
 	
 	private void createNorthController() {
@@ -109,26 +107,101 @@ public class FacePamphlet extends ConsoleProgram
 	}
 	
 	private void addChangeStatusInteractors() {
-		changeStatusField = new JTextField(TEXT_FIELD_SIZE);
-		changeStatusField.addActionListener(this);
-		changeStatusButton = new JButton("Change Status");
-		add(changeStatusField, WEST);
-		add(changeStatusButton, WEST);
+		addChangeStatusField();
+		addChangeStatusButton();
 	}
 	
 	private void addChangePictureInteractors() {
-		changePictureField = new JTextField(TEXT_FIELD_SIZE);
-		changePictureField.addActionListener(this);
-		changePictureButton = new JButton("Change Picture");
-		add(changePictureField, WEST);
-		add(changePictureButton, WEST);
+		addChangePictureField();
+		addChangePictureButton();
 	}
 	
 	private void addAddFriendInteractors() {
+		addAddFriendField();
+		addAddFriendButton();
+	}
+	
+	private void addChangeStatusField() {
+		changeStatusField = new JTextField(TEXT_FIELD_SIZE);
+		changeStatusField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(changeStatusField)) {
+					/* Stub */
+					println("Changed status to: " + changeStatusField.getText() + ".");
+				}
+			}
+		});
+		add(changeStatusField, WEST);
+	}
+	
+	private void addChangeStatusButton() {
+		changeStatusButton = new JButton("Change Status");
+		changeStatusButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(changeStatusField)) {
+					/* Stub */
+					println("Changed status to: " + changeStatusField.getText() + ".");
+				}
+			}
+		});
+		add(changeStatusButton, WEST);
+	}
+	
+	private void addChangePictureField() {
+		changePictureField = new JTextField(TEXT_FIELD_SIZE);
+		changePictureField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(changePictureField)) {
+					/* Stub */
+					println("Changed picture to: " + changePictureField.getText() + ".");
+				}
+			}
+		});
+		add(changePictureField, WEST);
+	}
+	
+	private void addChangePictureButton() {
+		changePictureButton = new JButton("Change Picture");
+		changePictureButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(changePictureField)) {
+					/* Stub */
+					println("Changed picture to: " + changePictureField.getText() + ".");
+				}
+			}
+		});
+		add(changePictureButton, WEST);
+	}
+	
+	private void addAddFriendField() {
 		addFriendField = new JTextField(TEXT_FIELD_SIZE);
-		addFriendField.addActionListener(this);
-		addFriendButton = new JButton("Add Friend");
+		addFriendField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(addFriendField)) {
+					/* Stub */
+					println("Added friend: " + addFriendField.getText() + ".");
+				}
+			}
+		});
 		add(addFriendField, WEST);
+	}
+	
+	private void addAddFriendButton() {
+		addFriendButton = new JButton("Add Friend");
+		addFriendButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(addFriendField)) {
+					/* Stub */
+					println("Added friend: " + addFriendField.getText() + ".");
+				}
+			}
+		});
 		add(addFriendButton, WEST);
 	}
     
