@@ -29,8 +29,7 @@ public class FacePamphlet extends ConsoleProgram
 	private JButton changePictureButton;
 	private JButton addFriendButton;
 	
-	private FacePamphletProfile profile;
-	private FacePamphletProfile profile2;
+	private FacePamphletProfile currentProfile = null;
 	private FacePamphletDatabase database;
 
 	/**
@@ -79,10 +78,12 @@ public class FacePamphlet extends ConsoleProgram
 					if (database.containsProfile(nameField.getText())) {
 						println("A profile with that name already exists.");
 						println(database.getProfile(nameField.getText()).toString());
+						currentProfile = database.getProfile(nameField.getText());
 					} else {
 						FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
 						database.addProfile(profile);
 						println("Added new profile named: " + profile.getName() + ".");
+						currentProfile = profile;
 					}
 				}
 			}
@@ -100,8 +101,9 @@ public class FacePamphlet extends ConsoleProgram
 					if (database.containsProfile(nameField.getText())) {
 						database.deleteProfile(nameField.getText());
 						println("The profile was deleted.");
+						currentProfile = null;
 					} else {
-						println("That profile doesn't exist in the database");
+						println("That profile doesn't exist in the database.");
 					}
 				}
 			}
@@ -118,8 +120,10 @@ public class FacePamphlet extends ConsoleProgram
 					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
 						println("Lookup: " + database.getProfile(nameField.getText()).toString());
+						currentProfile = database.getProfile(nameField.getText());
 					} else {
 						println("No profile with that name in the database");
+						currentProfile = null;
 					}
 				}
 			}
