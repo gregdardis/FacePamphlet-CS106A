@@ -8,6 +8,7 @@
 import acm.program.*;
 import acm.graphics.*;
 import acm.util.*;
+
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -22,10 +23,10 @@ public class FacePamphlet extends ConsoleProgram
 	
 	/* Instance variables for West Controller */
 	private JTextField changeStatusField;
-	private JButton changeStatusButton;
 	private JTextField changePictureField;
-	private JButton changePictureButton;
 	private JTextField addFriendField;
+	private JButton changeStatusButton;
+	private JButton changePictureButton;
 	private JButton addFriendButton;
 
 	/**
@@ -34,9 +35,11 @@ public class FacePamphlet extends ConsoleProgram
 	 * initialization that needs to be performed.
 	 */
 	public void init() {
+		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
-		addActionListeners();
+		
+//		addActionListeners();
     }
 	
 	private void createNorthController() {
@@ -51,13 +54,52 @@ public class FacePamphlet extends ConsoleProgram
 		add(nameField, NORTH);
 	}
 	
-	private void addThreeButtonsNorth() {
+	private void addAddButton() {
 		addButton = new JButton("Add");
-		deleteButton = new JButton("Delete");
-		lookupButton = new JButton("Lookup");
+		addButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(nameField)) {
+					/* Stub */
+					println("Added: " + nameField.getText() + ".");
+				}
+			}
+		});
 		add(addButton, NORTH);
+	}
+	
+	private void addDeleteButton() {
+		deleteButton = new JButton("Delete");
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(nameField)) {
+					/* Stub */
+					println("Deleted: " + nameField.getText() + ".");
+				}
+			}
+		});
 		add(deleteButton, NORTH);
+	}
+	
+	private void addLookupButton() {
+		lookupButton = new JButton("Lookup");
+		lookupButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fieldIsNotEmpty(nameField)) {
+					/* Stub */
+					println("Looked up: " + nameField.getText() + ".");
+				}
+			}
+		});
 		add(lookupButton, NORTH);
+	}
+	
+	private void addThreeButtonsNorth() {
+		addAddButton();
+		addDeleteButton();
+		addLookupButton();
 	}
 	
 	private void createWestController() {
@@ -90,33 +132,8 @@ public class FacePamphlet extends ConsoleProgram
 		add(addFriendButton, WEST);
 	}
     
-  
-    /**
-     * This class is responsible for detecting when the buttons are
-     * clicked or interactors are used, so you will have to add code
-     * to respond to these actions.
-     */
-    public void actionPerformed(ActionEvent e) {
-    	Object source = e.getSource();
-    	
-    	if (source == addButton && nameField.getText().length() != 0) {
-    		/* Stub code */
-    		println("Added profile for " + nameField.getText() + ".");
-    	}
-    	
-    	if (source == deleteButton && nameField.getText().length() != 0) {
-    		/* Stub code */
-    		println("Deleted profile for " + nameField.getText() + ".");
-    	}
-    	
-    	if (source == lookupButton && nameField.getText().length() != 0) {
-    		/* Stub code */
-    		println("Looked up profile for " + nameField.getText() + ".");
-    	}
-    	
-    	
-    	
-    	
-	}
+    private boolean fieldIsNotEmpty(JTextField field) {
+    	return field.getText().length() != 0;
+    }
 
 }
