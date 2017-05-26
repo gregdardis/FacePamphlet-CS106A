@@ -57,19 +57,27 @@ public class FacePamphletDatabase implements FacePamphletConstants {
 	 */
 	public void deleteProfile(String name) {
 		if (database.containsKey(name)) {
+			FacePamphletProfile profile = getProfile(name);
+			Iterator<String> friendsIterator = profile.getFriends();
+			while (friendsIterator.hasNext()) {
+				String currentFriend = friendsIterator.next();
+				FacePamphletProfile friendsProfile = database.get(currentFriend);
+				friendsProfile.removeFriend(name);
+			}
 			database.remove(name);
-			/* Updates list of friends of all other profiles */
 		}
 		
 	}
-
+	
 	
 	/** 
 	 * This method returns true if there is a profile in the database 
 	 * that has the given name.  It returns false otherwise.
 	 */
 	public boolean containsProfile(String name) {
-		// You fill this in.  Currently always returns false.
+		if (database.containsKey(name)) {
+			return true;
+		}
 		return false;
 	}
 

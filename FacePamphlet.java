@@ -30,6 +30,8 @@ public class FacePamphlet extends ConsoleProgram
 	private JButton addFriendButton;
 	
 	private FacePamphletProfile profile;
+	private FacePamphletProfile profile2;
+	private FacePamphletDatabase database;
 
 	/**
 	 * This method has the responsibility for initializing the 
@@ -40,12 +42,19 @@ public class FacePamphlet extends ConsoleProgram
 		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
+		database = new FacePamphletDatabase();
 		profile = new FacePamphletProfile("Greg Dardis");
+		profile2 = new FacePamphletProfile("Hailey");
+		database.addProfile(profile);
+		database.addProfile(profile2);
 		profile.setStatus("coding like a fiend");
-		profile.addFriend("bob");
-		profile.addFriend("joe");
-		profile.addFriend("hailey");
+		profile.addFriend("Hailey");
+		profile2.addFriend("Greg Dardis");
+		database.deleteProfile("Hailey");
 		System.out.println(profile.toString());
+		System.out.println(profile2.toString());
+		
+		
     }
 	
 	private void createNorthController() {
