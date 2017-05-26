@@ -97,7 +97,26 @@ public class FacePamphlet extends ConsoleProgram
      * to respond to these actions.
      */
     public void actionPerformed(ActionEvent e) {
-		// You fill this in as well as add any additional methods
+    	Object source = e.getSource();
+    	
+    	if (source == addButton && nameField.getText().length() != 0) {
+    		/* Stub code */
+    		println("Added profile for " + nameField.getText() + ".");
+    	}
+    	
+    	if (source == deleteButton && nameField.getText().length() != 0) {
+    		/* Stub code */
+    		println("Deleted profile for " + nameField.getText() + ".");
+    	}
+    	
+    	if (source == lookupButton && nameField.getText().length() != 0) {
+    		/* Stub code */
+    		println("Looked up profile for " + nameField.getText() + ".");
+    	}
+    	
+    	
+    	
+    	
 	}
 
 }
