@@ -43,16 +43,16 @@ public class FacePamphlet extends ConsoleProgram
 		createNorthController();
 		createWestController();
 		database = new FacePamphletDatabase();
-		profile = new FacePamphletProfile("Greg Dardis");
-		profile2 = new FacePamphletProfile("Hailey");
-		database.addProfile(profile);
-		database.addProfile(profile2);
-		profile.setStatus("coding like a fiend");
-		profile.addFriend("Hailey");
-		profile2.addFriend("Greg Dardis");
-		database.deleteProfile("Hailey");
-		System.out.println(profile.toString());
-		System.out.println(profile2.toString());
+//		profile = new FacePamphletProfile("Greg Dardis");
+//		profile2 = new FacePamphletProfile("Hailey");
+//		database.addProfile(profile);
+//		database.addProfile(profile2);
+//		profile.setStatus("coding like a fiend");
+//		profile.addFriend("Hailey");
+//		profile2.addFriend("Greg Dardis");
+//		database.deleteProfile("Hailey");
+//		System.out.println(profile.toString());
+//		System.out.println(profile2.toString());
 		
 		
     }
@@ -76,7 +76,14 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
 					/* Stub */
-					println("Added: " + nameField.getText() + ".");
+					if (database.containsProfile(nameField.getText())) {
+						println("A profile with that name already exists.");
+						println(database.getProfile(nameField.getText()).toString());
+					} else {
+						FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
+						database.addProfile(profile);
+						println("Added new profile named: " + profile.getName() + ".");
+					}
 				}
 			}
 		});
@@ -90,7 +97,12 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
 					/* Stub */
-					println("Deleted: " + nameField.getText() + ".");
+					if (database.containsProfile(nameField.getText())) {
+						database.deleteProfile(nameField.getText());
+						println("The profile was deleted.");
+					} else {
+						println("That profile doesn't exist in the database");
+					}
 				}
 			}
 		});
@@ -104,7 +116,11 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
 					/* Stub */
-					println("Looked up: " + nameField.getText() + ".");
+					if (database.containsProfile(nameField.getText())) {
+						println("Lookup: " + database.getProfile(nameField.getText()).toString());
+					} else {
+						println("No profile with that name in the database");
+					}
 				}
 			}
 		});
