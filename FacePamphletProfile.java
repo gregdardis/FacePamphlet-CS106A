@@ -115,10 +115,12 @@ public class FacePamphletProfile implements FacePamphletConstants {
 		if (friendList.size() == 0) {
 			return name + " (" + status + "): You have no friends";
 		}
+		
 		String listOfNames = friendList.get(0);
 		for (int i = 1; i < friendList.size(); i++) {
 			listOfNames = listOfNames + ", " + friendList.get(i);
 		}
+		
 		return name + " (" + status + "): " + listOfNames;
 	}
 	
