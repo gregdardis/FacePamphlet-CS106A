@@ -28,6 +28,8 @@ public class FacePamphlet extends ConsoleProgram
 	private JButton changeStatusButton;
 	private JButton changePictureButton;
 	private JButton addFriendButton;
+	
+	private FacePamphletProfile profile;
 
 	/**
 	 * This method has the responsibility for initializing the 
@@ -38,6 +40,12 @@ public class FacePamphlet extends ConsoleProgram
 		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
+		profile = new FacePamphletProfile("Greg Dardis");
+		profile.setStatus("coding like a fiend");
+		profile.addFriend("bob");
+		profile.addFriend("joe");
+		profile.addFriend("hailey");
+		System.out.println(profile.toString());
     }
 	
 	private void createNorthController() {
@@ -102,7 +110,9 @@ public class FacePamphlet extends ConsoleProgram
 	
 	private void createWestController() {
 		addChangeStatusInteractors();
+		addEmptySpace();
 		addChangePictureInteractors();
+		addEmptySpace();
 		addAddFriendInteractors();
 	}
 	
@@ -119,6 +129,10 @@ public class FacePamphlet extends ConsoleProgram
 	private void addAddFriendInteractors() {
 		addAddFriendField();
 		addAddFriendButton();
+	}
+	
+	private void addEmptySpace() {
+		add(new JLabel(EMPTY_LABEL_TEXT), WEST);
 	}
 	
 	private void addChangeStatusField() {

@@ -13,19 +13,23 @@ import java.util.*;
 
 public class FacePamphletProfile implements FacePamphletConstants {
 	
+	private String name;
+	private String status = "";
+	private GImage image = null;
+	private ArrayList<String> friendList = new ArrayList<String>();
+	
 	/** 
 	 * Constructor
 	 * This method takes care of any initialization needed for
 	 * the profile.
 	 */
 	public FacePamphletProfile(String name) {
-		// You fill this in
+		this.name = name;
 	}
 
 	/** This method returns the name associated with the profile. */ 
 	public String getName() {
-		// You fill this in.  Currently always returns the empty string.
-		return "";
+		return name;
 	}
 
 	/** 
@@ -33,13 +37,12 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 * If there is no image associated with the profile, the method
 	 * returns null. */ 
 	public GImage getImage() {
-		// You fill this in.  Currently always returns null.
-		return null;
+		return image;
 	}
 
 	/** This method sets the image associated with the profile. */ 
 	public void setImage(GImage image) {
-		// You fill this in
+		this.image = image;
 	}
 	
 	/** 
@@ -48,13 +51,12 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 * returns the empty string ("").
 	 */ 
 	public String getStatus() {
-		// You fill this in.  Currently always returns the empty string.
-		return "";
+		return status;
 	}
 	
 	/** This method sets the status associated with the profile. */ 
 	public void setStatus(String status) {
-		// You fill this in
+		this.status = status;
 	}
 
 	/** 
@@ -67,7 +69,10 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 * a second time.)
 	 */
 	public boolean addFriend(String friend) {
-		// You fill this in.  Currently always returns true.
+		if (friendList.contains(friend)) {
+			return false;
+		}
+		friendList.add(friend);
 		return true;
 	}
 
@@ -80,7 +85,10 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 * the given friend name could not be removed.)
 	 */
 	public boolean removeFriend(String friend) {
-		// You fill this in.  Currently always returns false.
+		if (friendList.contains(friend)) {
+			friendList.get(friendList.indexOf(friend));
+			return true;
+		}
 		return false;
 	}
 
@@ -89,8 +97,7 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 * associated with the profile.
 	 */ 
 	public Iterator<String> getFriends() {
-		// You fill this in.  Currently always returns null.
-		return null;
+		return friendList.listIterator();
 	}
 	
 	/** 
@@ -105,8 +112,14 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 * would return the string: "Alice (coding): Don, Chelsea, Bob"
 	 */ 
 	public String toString() {
-		// You fill this in.  Currently always returns the empty string.
-		return "";
+		if (friendList.size() == 0) {
+			return name + " (" + status + "): You have no friends";
+		}
+		String listOfNames = friendList.get(0);
+		for (int i = 1; i < friendList.size(); i++) {
+			listOfNames = listOfNames + ", " + friendList.get(i);
+		}
+		return name + " (" + status + "): " + listOfNames;
 	}
 	
 }
