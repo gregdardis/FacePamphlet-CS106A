@@ -251,16 +251,24 @@ public class FacePamphlet extends Program
 			if (currentProfile != null) {
 				currentProfile.setStatus(changeStatusField.getText());
 				System.out.println("Status has been updated to: " + changeStatusField.getText());
+				updatedStatusMessage(changeStatusField.getText());
 			} else if (currentProfile == null) {
 				System.out.println("No profile selected. Add or lookup a profile to change their status");
-			} else {
-				System.out.println("Something went wrong");
+				noProfileSelectedCannotChangeStatusMessage();
 			}
 			System.out.println("Current profile is: " + currentProfile);
 		} else {
 			boxIsEmptyMessage();
 		}
 	}
+    
+    private void updatedStatusMessage(String status) {
+    	canvas.showMessage("Status has been updated to: " + status);
+    }
+    
+    private void noProfileSelectedCannotChangeStatusMessage() {
+    	canvas.showMessage("No profile selected. Add or lookup a profile to change their status");
+    }
     
     @Override
     public void changePicture() {
@@ -271,18 +279,34 @@ public class FacePamphlet extends Program
 				try {
 					image = new GImage(changePictureField.getText());
 					System.out.println("That is an image! It will be added.");
+					existingImageMessage();
 					currentProfile.setImage(image);
 				} catch (ErrorException ex) {
 					System.out.println("That file doesn't exist! Try again.");
+					badImageNameMessage(changePictureField.getText());
 				}
 			} else if (currentProfile == null) {
 				System.out.println("No profile selected. Add or lookup a profile to change their picture");
+				noProfileSelectedCannotChangePictureMessage();
 			}
 			System.out.println("Current profile is: " + currentProfile);
 		} else {
 			boxIsEmptyMessage();
 		}
     }
+    
+    private void existingImageMessage() {
+    	canvas.showMessage("Image added for user: " + currentProfile.getName());
+    }
+    
+    private void badImageNameMessage(String filename) {
+    	canvas.showMessage("A file by the name of " + filename + " doesn't exist. Try again.");
+    }
+    
+    private void noProfileSelectedCannotChangePictureMessage() {
+    	canvas.showMessage("No profile selected. Add or lookup a profile to change their picture");
+    }
+    
     
     @Override
     public void addFriend() {
@@ -292,20 +316,39 @@ public class FacePamphlet extends Program
 				if (database.containsProfile(addFriendField.getText())) {
 					if (currentProfile.addFriend(addFriendField.getText())) {
 						System.out.println(addFriendField.getText() + " added as a friend.");
+						friendAddedMessage(addFriendField.getText());
 						FacePamphletProfile profile = database.getProfile(addFriendField.getText());
 						profile.addFriend(currentProfile.getName());
 					} else {
 						System.out.println("You are already friends with " + addFriendField.getText() + "!");
+						alreadyFriendsMessage(addFriendField.getText());
 					}
 				} else {
 					System.out.println("That profile doesn't exist, so we can't add them as your friend.");
+					profileDoesNotExistCannotAddFriendMessage(addFriendField.getText());
 				}
 			} else {
-				System.out.println("You must lookup a profile or add a new one before you can add friends!");
+				lookupProfileToAddFriendMessage();
 			}
 			System.out.println("Current profile is: " + currentProfile);
 		} else {
 			boxIsEmptyMessage();
 		}
+    }
+    
+    private void friendAddedMessage(String friendName) {
+    	canvas.showMessage(friendName + " has been added as a friend.");
+    }
+    
+    private void alreadyFriendsMessage(String friendName) {
+    	canvas.showMessage("You are already friends with " + friendName + "!");
+    }
+    
+    private void profileDoesNotExistCannotAddFriendMessage(String profileName) {
+    	canvas.showMessage("A profile for " + profileName + " doesn't exist, so you can't add them as your friend.");
+    }
+    
+    private void lookupProfileToAddFriendMessage() {
+    	canvas.showMessage("You must lookup a profile or add a new one before you can add friends!");
     }
 }
