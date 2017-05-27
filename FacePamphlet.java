@@ -13,7 +13,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class FacePamphlet extends ConsoleProgram 
-					implements FacePamphletConstants {
+					implements FacePamphletConstants, ChangeStatusListener.StatusChanger {
 	
 	/* Instance variables for North Controller */
 	private JTextField nameField;
@@ -29,8 +29,8 @@ public class FacePamphlet extends ConsoleProgram
 	private JButton changePictureButton;
 	private JButton addFriendButton;
 	
-	private FacePamphletProfile currentProfile = new FacePamphletProfile("");
-	private FacePamphletDatabase database;
+	private FacePamphletProfile currentProfile = null;
+	private FacePamphletDatabase database = new FacePamphletDatabase();
 
 	/**
 	 * This method has the responsibility for initializing the 
@@ -41,7 +41,6 @@ public class FacePamphlet extends ConsoleProgram
 		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
-		database = new FacePamphletDatabase();
     }
 	
 	private void createNorthController() {
@@ -157,13 +156,13 @@ public class FacePamphlet extends ConsoleProgram
 	
 	private void addChangeStatusField() {
 		changeStatusField = new JTextField(TEXT_FIELD_SIZE);
-		changeStatusField.addActionListener(new ChangeStatusListener(changeStatusField, currentProfile));
+		changeStatusField.addActionListener(new ChangeStatusListener(changeStatusField, this));
 		add(changeStatusField, WEST);
 	}
 	
 	private void addChangeStatusButton() {
 		changeStatusButton = new JButton("Change Status");
-		changeStatusButton.addActionListener(new ChangeStatusListener(changeStatusField, currentProfile));
+		changeStatusButton.addActionListener(new ChangeStatusListener(changeStatusField, this));
 		add(changeStatusButton, WEST);
 	}
 	
@@ -181,65 +180,35 @@ public class FacePamphlet extends ConsoleProgram
 	
 	private void addAddFriendField() {
 		addFriendField = new JTextField(TEXT_FIELD_SIZE);
-		addFriendField.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (fieldIsNotEmpty(addFriendField)) {
-					/* Stub */
-					if (currentProfile != null) {
-						if (database.containsProfile(addFriendField.getText())) {
-							if (currentProfile.addFriend(addFriendField.getText())) {
-								println(addFriendField.getText() + " added as a friend.");
-								FacePamphletProfile profile = database.getProfile(addFriendField.getText());
-								profile.addFriend(currentProfile.getName());
-							} else {
-								println("You are already friends with " + addFriendField.getText() + "!");
-							}
-						} else {
-							println("That profile doesn't exist, so we can't add them as your friend.");
-						}
-					} else {
-						println("You must lookup a profile or add a new one before you can add friends!");
-					}
-					println("Current profile is: " + currentProfile);
-				}
-			}
-		});
+		addFriendField.addActionListener(new AddFriendListener(addFriendField, currentProfile, database));
 		add(addFriendField, WEST);
 	}
 	
 	private void addAddFriendButton() {
 		addFriendButton = new JButton("Add Friend");
-		addFriendButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (fieldIsNotEmpty(addFriendField)) {
-					/* Stub */
-					if (currentProfile != null) {
-						if (database.containsProfile(addFriendField.getText())) {
-							if (currentProfile.addFriend(addFriendField.getText())) {
-								println(addFriendField.getText() + " added as a friend.");
-								FacePamphletProfile profile = database.getProfile(addFriendField.getText());
-								profile.addFriend(currentProfile.getName());
-							} else {
-								println("You are already friends with " + addFriendField.getText() + "!");
-							}
-						} else {
-							println("That profile doesn't exist, so we can't add them as your friend.");
-						}
-					} else {
-						println("You must lookup a profile or add a new one before you can add friends!");
-					}
-					println("Current profile is: " + currentProfile);
-				}
-			}
-		});
+		addFriendButton.addActionListener(new AddFriendListener(addFriendField, currentProfile, database));
 		add(addFriendButton, WEST);
 	}
     
     public static boolean fieldIsNotEmpty(JTextField field) {
     	return field.getText().length() != 0;
     }
-
+    
+    @Override
+    public void changeStatus() {
+    	if (fieldIsNotEmpty(changeStatusField)) {
+			/* Stub */
+			if (currentProfile != null) {
+				currentProfile.setStatus(changeStatusField.getText());
+				System.out.println("Status has been updated to: " + changeStatusField.getText());
+			} else if (currentProfile == null) {
+				System.out.println("No profile selected. Add or lookup a profile to change their status");
+			} else {
+				System.out.println("Something went wrong");
+			}
+			System.out.println("Current profile is: " + currentProfile);
+		}
+	}
 }
+    
 // TODO: Milestone 5, clean up actionPerformed for all buttons (decomposition, this was bottom-up, should be doing it top-down)
