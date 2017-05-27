@@ -74,13 +74,14 @@ public class FacePamphlet extends Program
 				if (fieldIsNotEmpty(nameField)) {
 					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
-						System.out.println("A profile with that name already exists.");
+						profileAlreadyExistsMessage();
 						System.out.println(database.getProfile(nameField.getText()).toString());
 						currentProfile = database.getProfile(nameField.getText());
 					} else {
 						FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
 						database.addProfile(profile);
 						System.out.println("Added new profile named: " + profile.getName() + ".");
+						addNewProfileMessage(profile);
 						currentProfile = profile;
 					}
 					System.out.println("Current profile is: " + currentProfile);
@@ -88,6 +89,14 @@ public class FacePamphlet extends Program
 			}
 		});
 		add(addButton, NORTH);
+	}
+	
+	private void profileAlreadyExistsMessage() {
+		canvas.showMessage("A profile with that name already exists.");
+	}
+	
+	private void addNewProfileMessage(FacePamphletProfile profile) {
+		canvas.showMessage("Added new profile named: " + profile.getName() + ".");
 	}
 	
 	private void addDeleteButton() {
