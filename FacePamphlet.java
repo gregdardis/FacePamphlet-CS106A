@@ -85,6 +85,7 @@ public class FacePamphlet extends ConsoleProgram
 						println("Added new profile named: " + profile.getName() + ".");
 						currentProfile = profile;
 					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -105,6 +106,7 @@ public class FacePamphlet extends ConsoleProgram
 					} else {
 						println("That profile doesn't exist in the database.");
 					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -125,6 +127,7 @@ public class FacePamphlet extends ConsoleProgram
 						println("No profile with that name in the database");
 						currentProfile = null;
 					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -171,7 +174,15 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(changeStatusField)) {
 					/* Stub */
-					println("Changed status to: " + changeStatusField.getText() + ".");
+					if (currentProfile != null) {
+						currentProfile.setStatus(changeStatusField.getText());
+						println("Status has been updated to: " + changeStatusField.getText());
+					} else if (currentProfile == null) {
+						println("No profile selected. Add or lookup a profile to change their status");
+					} else {
+						println("Something went wrong");
+					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -185,7 +196,15 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(changeStatusField)) {
 					/* Stub */
-					println("Changed status to: " + changeStatusField.getText() + ".");
+					if (currentProfile != null) {
+						currentProfile.setStatus(changeStatusField.getText());
+						println("Status has been updated to: " + changeStatusField.getText());
+					} else if (currentProfile == null) {
+						println("No profile selected. Add or lookup a profile to change their status");
+					} else {
+						println("Something went wrong");
+					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -199,7 +218,19 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(changePictureField)) {
 					/* Stub */
-					println("Changed picture to: " + changePictureField.getText() + ".");
+					if (currentProfile != null) {
+						GImage image = null;
+						try {
+							image = new GImage(changePictureField.getText());
+							println("That is an image! It will be added.");
+							currentProfile.setImage(image);
+						} catch (ErrorException ex) {
+							println("That file doesn't exist! Try again.");
+						}
+					} else if (currentProfile == null) {
+						println("No profile selected. Add or lookup a profile to change their picture");
+					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -213,7 +244,19 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(changePictureField)) {
 					/* Stub */
-					println("Changed picture to: " + changePictureField.getText() + ".");
+					if (currentProfile != null) {
+						GImage image = null;
+						try {
+							image = new GImage(changePictureField.getText());
+							println("That is an image! It will be added.");
+							currentProfile.setImage(image);
+						} catch (ErrorException ex) {
+							println("That file doesn't exist! Try again.");
+						}
+					} else if (currentProfile == null) {
+						println("No profile selected. Add or lookup a profile to change their picture");
+					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -227,7 +270,22 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(addFriendField)) {
 					/* Stub */
-					println("Added friend: " + addFriendField.getText() + ".");
+					if (currentProfile != null) {
+						if (database.containsProfile(addFriendField.getText())) {
+							if (currentProfile.addFriend(addFriendField.getText())) {
+								println(addFriendField.getText() + " added as a friend.");
+								FacePamphletProfile profile = database.getProfile(addFriendField.getText());
+								profile.addFriend(currentProfile.getName());
+							} else {
+								println("You are already friends with " + addFriendField.getText() + "!");
+							}
+						} else {
+							println("That profile doesn't exist, so we can't add them as your friend.");
+						}
+					} else {
+						println("You must lookup a profile or add a new one before you can add friends!");
+					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -241,7 +299,22 @@ public class FacePamphlet extends ConsoleProgram
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(addFriendField)) {
 					/* Stub */
-					println("Added friend: " + addFriendField.getText() + ".");
+					if (currentProfile != null) {
+						if (database.containsProfile(addFriendField.getText())) {
+							if (currentProfile.addFriend(addFriendField.getText())) {
+								println(addFriendField.getText() + " added as a friend.");
+								FacePamphletProfile profile = database.getProfile(addFriendField.getText());
+								profile.addFriend(currentProfile.getName());
+							} else {
+								println("You are already friends with " + addFriendField.getText() + "!");
+							}
+						} else {
+							println("That profile doesn't exist, so we can't add them as your friend.");
+						}
+					} else {
+						println("You must lookup a profile or add a new one before you can add friends!");
+					}
+					println("Current profile is: " + currentProfile);
 				}
 			}
 		});
