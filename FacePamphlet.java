@@ -29,7 +29,7 @@ public class FacePamphlet extends ConsoleProgram
 	private JButton changePictureButton;
 	private JButton addFriendButton;
 	
-	private FacePamphletProfile currentProfile = null;
+	private FacePamphletProfile currentProfile = new FacePamphletProfile("");
 	private FacePamphletDatabase database;
 
 	/**
@@ -157,97 +157,25 @@ public class FacePamphlet extends ConsoleProgram
 	
 	private void addChangeStatusField() {
 		changeStatusField = new JTextField(TEXT_FIELD_SIZE);
-		changeStatusField.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (fieldIsNotEmpty(changeStatusField)) {
-					/* Stub */
-					if (currentProfile != null) {
-						currentProfile.setStatus(changeStatusField.getText());
-						println("Status has been updated to: " + changeStatusField.getText());
-					} else if (currentProfile == null) {
-						println("No profile selected. Add or lookup a profile to change their status");
-					} else {
-						println("Something went wrong");
-					}
-					println("Current profile is: " + currentProfile);
-				}
-			}
-		});
+		changeStatusField.addActionListener(new ChangeStatusListener(changeStatusField, currentProfile));
 		add(changeStatusField, WEST);
 	}
 	
 	private void addChangeStatusButton() {
 		changeStatusButton = new JButton("Change Status");
-		changeStatusButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (fieldIsNotEmpty(changeStatusField)) {
-					/* Stub */
-					if (currentProfile != null) {
-						currentProfile.setStatus(changeStatusField.getText());
-						println("Status has been updated to: " + changeStatusField.getText());
-					} else if (currentProfile == null) {
-						println("No profile selected. Add or lookup a profile to change their status");
-					} else {
-						println("Something went wrong");
-					}
-					println("Current profile is: " + currentProfile);
-				}
-			}
-		});
+		changeStatusButton.addActionListener(new ChangeStatusListener(changeStatusField, currentProfile));
 		add(changeStatusButton, WEST);
 	}
 	
 	private void addChangePictureField() {
 		changePictureField = new JTextField(TEXT_FIELD_SIZE);
-		changePictureField.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (fieldIsNotEmpty(changePictureField)) {
-					/* Stub */
-					if (currentProfile != null) {
-						GImage image = null;
-						try {
-							image = new GImage(changePictureField.getText());
-							println("That is an image! It will be added.");
-							currentProfile.setImage(image);
-						} catch (ErrorException ex) {
-							println("That file doesn't exist! Try again.");
-						}
-					} else if (currentProfile == null) {
-						println("No profile selected. Add or lookup a profile to change their picture");
-					}
-					println("Current profile is: " + currentProfile);
-				}
-			}
-		});
+		changePictureField.addActionListener(new ChangePictureListener(changePictureField, currentProfile));			
 		add(changePictureField, WEST);
 	}
 	
 	private void addChangePictureButton() {
 		changePictureButton = new JButton("Change Picture");
-		changePictureButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (fieldIsNotEmpty(changePictureField)) {
-					/* Stub */
-					if (currentProfile != null) {
-						GImage image = null;
-						try {
-							image = new GImage(changePictureField.getText());
-							println("That is an image! It will be added.");
-							currentProfile.setImage(image);
-						} catch (ErrorException ex) {
-							println("That file doesn't exist! Try again.");
-						}
-					} else if (currentProfile == null) {
-						println("No profile selected. Add or lookup a profile to change their picture");
-					}
-					println("Current profile is: " + currentProfile);
-				}
-			}
-		});
+		changePictureButton.addActionListener(new ChangePictureListener(changePictureField, currentProfile));
 		add(changePictureButton, WEST);
 	}
 	
@@ -309,7 +237,7 @@ public class FacePamphlet extends ConsoleProgram
 		add(addFriendButton, WEST);
 	}
     
-    private boolean fieldIsNotEmpty(JTextField field) {
+    public static boolean fieldIsNotEmpty(JTextField field) {
     	return field.getText().length() != 0;
     }
 
