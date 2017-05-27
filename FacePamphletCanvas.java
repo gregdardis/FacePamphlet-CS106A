@@ -76,6 +76,13 @@ public class FacePamphletCanvas extends GCanvas
 		} else {
 			displayImage(profile.getImage());
 		}
+		displayStatus(profile.getName(), profile.getStatus());
+	}
+	
+	private void displayStatus(String name, String status) {
+		GLabel statusLabel = new GLabel(name + " is " + status);
+		statusLabel.setFont(PROFILE_STATUS_FONT);
+		add(statusLabel, LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN + IMAGE_HEIGHT + STATUS_MARGIN);
 	}
 	
 	private void drawPlaceholderImageBox() {
