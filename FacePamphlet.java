@@ -13,7 +13,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class FacePamphlet extends ConsoleProgram 
-					implements FacePamphletConstants, ChangeStatusListener.StatusChanger {
+					implements FacePamphletConstants, ChangeStatusListener.StatusChanger,
+					ChangePictureListener.PictureChanger {
 	
 	/* Instance variables for North Controller */
 	private JTextField nameField;
@@ -168,13 +169,13 @@ public class FacePamphlet extends ConsoleProgram
 	
 	private void addChangePictureField() {
 		changePictureField = new JTextField(TEXT_FIELD_SIZE);
-		changePictureField.addActionListener(new ChangePictureListener(changePictureField, currentProfile));			
+		changePictureField.addActionListener(new ChangePictureListener(changePictureField, this));			
 		add(changePictureField, WEST);
 	}
 	
 	private void addChangePictureButton() {
 		changePictureButton = new JButton("Change Picture");
-		changePictureButton.addActionListener(new ChangePictureListener(changePictureField, currentProfile));
+		changePictureButton.addActionListener(new ChangePictureListener(changePictureField, this));
 		add(changePictureButton, WEST);
 	}
 	
@@ -209,6 +210,26 @@ public class FacePamphlet extends ConsoleProgram
 			System.out.println("Current profile is: " + currentProfile);
 		}
 	}
+    
+    @Override
+    public void changePicture() {
+    	if (fieldIsNotEmpty(changePictureField)) {
+			/* Stub */
+			if (currentProfile != null) {
+				GImage image = null;
+				try {
+					image = new GImage(changePictureField.getText());
+					System.out.println("That is an image! It will be added.");
+					currentProfile.setImage(image);
+				} catch (ErrorException ex) {
+					System.out.println("That file doesn't exist! Try again.");
+				}
+			} else if (currentProfile == null) {
+				System.out.println("No profile selected. Add or lookup a profile to change their picture");
+			}
+			System.out.println("Current profile is: " + currentProfile);
+		}
+    }
 }
     
 // TODO: Milestone 5, clean up actionPerformed for all buttons (decomposition, this was bottom-up, should be doing it top-down)
