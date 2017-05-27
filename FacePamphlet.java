@@ -42,18 +42,6 @@ public class FacePamphlet extends ConsoleProgram
 		createNorthController();
 		createWestController();
 		database = new FacePamphletDatabase();
-//		profile = new FacePamphletProfile("Greg Dardis");
-//		profile2 = new FacePamphletProfile("Hailey");
-//		database.addProfile(profile);
-//		database.addProfile(profile2);
-//		profile.setStatus("coding like a fiend");
-//		profile.addFriend("Hailey");
-//		profile2.addFriend("Greg Dardis");
-//		database.deleteProfile("Hailey");
-//		System.out.println(profile.toString());
-//		System.out.println(profile2.toString());
-		
-		
     }
 	
 	private void createNorthController() {
@@ -326,3 +314,4 @@ public class FacePamphlet extends ConsoleProgram
     }
 
 }
+// TODO: Milestone 5, clean up actionPerformed for all buttons (decomposition, this was bottom-up, should be doing it top-down)
