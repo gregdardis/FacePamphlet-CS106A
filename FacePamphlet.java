@@ -12,7 +12,7 @@ import acm.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class FacePamphlet extends ConsoleProgram 
+public class FacePamphlet extends Program 
 					implements FacePamphletConstants, ChangeStatusListener.StatusChanger,
 					ChangePictureListener.PictureChanger, AddFriendListener.FriendAdder {
 	
@@ -32,6 +32,7 @@ public class FacePamphlet extends ConsoleProgram
 	
 	private FacePamphletProfile currentProfile = null;
 	private FacePamphletDatabase database = new FacePamphletDatabase();
+	private FacePamphletCanvas canvas = new FacePamphletCanvas();
 
 	/**
 	 * This method has the responsibility for initializing the 
@@ -42,7 +43,16 @@ public class FacePamphlet extends ConsoleProgram
 		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
+		add(canvas);
     }
+	
+	public void run() {
+		noProfileSelectedMessage();
+	}
+	
+	private void noProfileSelectedMessage() {
+		canvas.showMessage("No profile selected. Please look one up or add a new one.");
+	}
 	
 	private void createNorthController() {
 		addLabelAndTextField();
@@ -64,16 +74,16 @@ public class FacePamphlet extends ConsoleProgram
 				if (fieldIsNotEmpty(nameField)) {
 					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
-						println("A profile with that name already exists.");
-						println(database.getProfile(nameField.getText()).toString());
+						System.out.println("A profile with that name already exists.");
+						System.out.println(database.getProfile(nameField.getText()).toString());
 						currentProfile = database.getProfile(nameField.getText());
 					} else {
 						FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
 						database.addProfile(profile);
-						println("Added new profile named: " + profile.getName() + ".");
+						System.out.println("Added new profile named: " + profile.getName() + ".");
 						currentProfile = profile;
 					}
-					println("Current profile is: " + currentProfile);
+					System.out.println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -89,12 +99,12 @@ public class FacePamphlet extends ConsoleProgram
 					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
 						database.deleteProfile(nameField.getText());
-						println("The profile was deleted.");
+						System.out.println("The profile was deleted.");
 						currentProfile = null;
 					} else {
-						println("That profile doesn't exist in the database.");
+						System.out.println("That profile doesn't exist in the database.");
 					}
-					println("Current profile is: " + currentProfile);
+					System.out.println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -109,13 +119,13 @@ public class FacePamphlet extends ConsoleProgram
 				if (fieldIsNotEmpty(nameField)) {
 					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
-						println("Lookup: " + database.getProfile(nameField.getText()).toString());
+						System.out.println("Lookup: " + database.getProfile(nameField.getText()).toString());
 						currentProfile = database.getProfile(nameField.getText());
 					} else {
-						println("No profile with that name in the database");
+						System.out.println("No profile with that name in the database");
 						currentProfile = null;
 					}
-					println("Current profile is: " + currentProfile);
+					System.out.println("Current profile is: " + currentProfile);
 				}
 			}
 		});
@@ -155,6 +165,9 @@ public class FacePamphlet extends ConsoleProgram
 		add(new JLabel(EMPTY_LABEL_TEXT), WEST);
 	}
 	
+	/* Makes a new ChangeStatusListener for this field, and the FacePamphlet class itself is a StatusChanger (interface),
+	 * so when actionPerformed is called, FacePamphlet calls changeStatus and since it is a StatusChanger it changes the
+	 * status of the currentProfile. The rest of the methods below this are analogous */
 	private void addChangeStatusField() {
 		changeStatusField = new JTextField(TEXT_FIELD_SIZE);
 		changeStatusField.addActionListener(new ChangeStatusListener(changeStatusField, this));
@@ -201,13 +214,13 @@ public class FacePamphlet extends ConsoleProgram
 			/* Stub */
 			if (currentProfile != null) {
 				currentProfile.setStatus(changeStatusField.getText());
-				println("Status has been updated to: " + changeStatusField.getText());
+				System.out.println("Status has been updated to: " + changeStatusField.getText());
 			} else if (currentProfile == null) {
-				println("No profile selected. Add or lookup a profile to change their status");
+				System.out.println("No profile selected. Add or lookup a profile to change their status");
 			} else {
-				println("Something went wrong");
+				System.out.println("Something went wrong");
 			}
-			println("Current profile is: " + currentProfile);
+			System.out.println("Current profile is: " + currentProfile);
 		}
 	}
     
@@ -219,15 +232,15 @@ public class FacePamphlet extends ConsoleProgram
 				GImage image = null;
 				try {
 					image = new GImage(changePictureField.getText());
-					println("That is an image! It will be added.");
+					System.out.println("That is an image! It will be added.");
 					currentProfile.setImage(image);
 				} catch (ErrorException ex) {
-					println("That file doesn't exist! Try again.");
+					System.out.println("That file doesn't exist! Try again.");
 				}
 			} else if (currentProfile == null) {
-				println("No profile selected. Add or lookup a profile to change their picture");
+				System.out.println("No profile selected. Add or lookup a profile to change their picture");
 			}
-			println("Current profile is: " + currentProfile);
+			System.out.println("Current profile is: " + currentProfile);
 		}
     }
     
@@ -238,21 +251,19 @@ public class FacePamphlet extends ConsoleProgram
 			if (currentProfile != null) {
 				if (database.containsProfile(addFriendField.getText())) {
 					if (currentProfile.addFriend(addFriendField.getText())) {
-						println(addFriendField.getText() + " added as a friend.");
+						System.out.println(addFriendField.getText() + " added as a friend.");
 						FacePamphletProfile profile = database.getProfile(addFriendField.getText());
 						profile.addFriend(currentProfile.getName());
 					} else {
-						println("You are already friends with " + addFriendField.getText() + "!");
+						System.out.println("You are already friends with " + addFriendField.getText() + "!");
 					}
 				} else {
-					println("That profile doesn't exist, so we can't add them as your friend.");
+					System.out.println("That profile doesn't exist, so we can't add them as your friend.");
 				}
 			} else {
-				println("You must lookup a profile or add a new one before you can add friends!");
+				System.out.println("You must lookup a profile or add a new one before you can add friends!");
 			}
-			println("Current profile is: " + currentProfile);
+			System.out.println("Current profile is: " + currentProfile);
 		}
     }
 }
-    
-// TODO: Milestone 5, clean up actionPerformed for all buttons (decomposition, this was bottom-up, should be doing it top-down)

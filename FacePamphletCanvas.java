@@ -19,9 +19,9 @@ public class FacePamphletCanvas extends GCanvas
 	 * This method takes care of any initialization needed for 
 	 * the display
 	 */
-	public FacePamphletCanvas() {
-		// You fill this in
-	}
+//	public FacePamphletCanvas() {
+//		super();
+//	}
 
 	
 	/** 
@@ -31,7 +31,21 @@ public class FacePamphletCanvas extends GCanvas
 	 * passed in.
 	 */
 	public void showMessage(String msg) {
-		// You fill this in
+		GLabel message = new GLabel(msg);
+		message.setFont(MESSAGE_FONT);
+		double x = getMessageXCoordinate(message);
+		double y = getMessageYCoordinate(message);
+		add(message, x, y);
+		System.out.println("Message length: " + message.getWidth());
+	}
+	
+	/* Returns the x coordinate for a GLabel that will make it centered on the screen */
+	private double getMessageXCoordinate(GLabel message) {
+		return (getWidth() - message.getWidth()) / 2;
+	}
+	
+	private double getMessageYCoordinate(GLabel message) {
+		return (getHeight() - BOTTOM_MESSAGE_MARGIN);
 	}
 	
 	
