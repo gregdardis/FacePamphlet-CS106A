@@ -19,9 +19,9 @@ public class FacePamphletCanvas extends GCanvas
 	 * This method takes care of any initialization needed for 
 	 * the display
 	 */
-//	public FacePamphletCanvas() {
-//		super();
-//	}
+	public FacePamphletCanvas() {
+		
+	}
 
 	
 	/** 

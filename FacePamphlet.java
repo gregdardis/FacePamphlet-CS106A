@@ -72,7 +72,6 @@ public class FacePamphlet extends Program
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
-					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
 						profileAlreadyExistsMessage();
 						System.out.println(database.getProfile(nameField.getText()).toString());
@@ -247,7 +246,6 @@ public class FacePamphlet extends Program
     @Override
     public void changeStatus() {
     	if (fieldIsNotEmpty(changeStatusField)) {
-			/* Stub */
 			if (currentProfile != null) {
 				currentProfile.setStatus(changeStatusField.getText());
 				System.out.println("Status has been updated to: " + changeStatusField.getText());
@@ -273,7 +271,6 @@ public class FacePamphlet extends Program
     @Override
     public void changePicture() {
     	if (fieldIsNotEmpty(changePictureField)) {
-			/* Stub */
 			if (currentProfile != null) {
 				GImage image = null;
 				try {
@@ -306,7 +303,6 @@ public class FacePamphlet extends Program
     private void noProfileSelectedCannotChangePictureMessage() {
     	canvas.showMessage("No profile selected. Add or lookup a profile to change their picture");
     }
-    
     
     @Override
     public void addFriend() {
