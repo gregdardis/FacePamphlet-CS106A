@@ -31,19 +31,22 @@ public class FacePamphletCanvas extends GCanvas
 	 * passed in.
 	 */
 	public void showMessage(String msg) {
-		
 		GLabel message = new GLabel(msg);
 		message.setFont(MESSAGE_FONT);
 		double x = getMessageXCoordinate(message);
 		double y = getMessageYCoordinate(message);
 		
+		removeOldMessage();
+		add(message, x, y);
+	}
+	
+	/* Checks if there is a message already displayed for the user at the bottom of the canvas.
+	 * If there is, removes it. Otherwise, does nothing. */
+	private void removeOldMessage() {
 		GObject oldMessage = getElementAt(getWidth() / 2, getHeight() - BOTTOM_MESSAGE_MARGIN);
 		if (oldMessage != null) {
 			remove(oldMessage);
 		}
-		
-		add(message, x, y);
-		System.out.println("Message length: " + message.getWidth());
 	}
 	
 	/* Returns the x coordinate for a GLabel that will make it centered on the screen */

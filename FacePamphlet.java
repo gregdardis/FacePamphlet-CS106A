@@ -86,9 +86,16 @@ public class FacePamphlet extends Program
 					}
 					System.out.println("Current profile is: " + currentProfile);
 				}
+				else {
+					boxIsEmptyMessage();
+				}
 			}
 		});
 		add(addButton, NORTH);
+	}
+	
+	private void boxIsEmptyMessage() {
+		canvas.showMessage("You must type something in the field before clicking the button.");
 	}
 	
 	private void profileAlreadyExistsMessage() {
@@ -107,17 +114,29 @@ public class FacePamphlet extends Program
 				if (fieldIsNotEmpty(nameField)) {
 					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
+						profileDeletedMessage(nameField.getText());
 						database.deleteProfile(nameField.getText());
 						System.out.println("The profile was deleted.");
 						currentProfile = null;
 					} else {
 						System.out.println("That profile doesn't exist in the database.");
+						profileDoesNotExistMessage(nameField.getText());
 					}
 					System.out.println("Current profile is: " + currentProfile);
+				} else {
+					boxIsEmptyMessage();
 				}
 			}
 		});
 		add(deleteButton, NORTH);
+	}
+	
+	private void profileDeletedMessage(String profileName) {
+		canvas.showMessage(profileName + "'s profile was deleted.");
+	}
+	
+	private void profileDoesNotExistMessage(String profileName) {
+		canvas.showMessage("A profile for " + profileName + " does not exist in the database.");
 	}
 	
 	private void addLookupButton() {
@@ -129,16 +148,24 @@ public class FacePamphlet extends Program
 					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
 						System.out.println("Lookup: " + database.getProfile(nameField.getText()).toString());
+						lookedUpUserMessage(nameField.getText());
 						currentProfile = database.getProfile(nameField.getText());
 					} else {
 						System.out.println("No profile with that name in the database");
+						profileDoesNotExistMessage(nameField.getText());
 						currentProfile = null;
 					}
 					System.out.println("Current profile is: " + currentProfile);
+				} else {
+					boxIsEmptyMessage();
 				}
 			}
 		});
 		add(lookupButton, NORTH);
+	}
+	
+	private void lookedUpUserMessage(String profileName) {
+		canvas.showMessage("Looked up user: " + profileName + ".");
 	}
 	
 	private void addThreeButtonsNorth() {
@@ -230,6 +257,8 @@ public class FacePamphlet extends Program
 				System.out.println("Something went wrong");
 			}
 			System.out.println("Current profile is: " + currentProfile);
+		} else {
+			boxIsEmptyMessage();
 		}
 	}
     
@@ -250,6 +279,8 @@ public class FacePamphlet extends Program
 				System.out.println("No profile selected. Add or lookup a profile to change their picture");
 			}
 			System.out.println("Current profile is: " + currentProfile);
+		} else {
+			boxIsEmptyMessage();
 		}
     }
     
@@ -273,6 +304,8 @@ public class FacePamphlet extends Program
 				System.out.println("You must lookup a profile or add a new one before you can add friends!");
 			}
 			System.out.println("Current profile is: " + currentProfile);
+		} else {
+			boxIsEmptyMessage();
 		}
     }
 }
