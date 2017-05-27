@@ -14,7 +14,7 @@ import javax.swing.*;
 
 public class FacePamphlet extends ConsoleProgram 
 					implements FacePamphletConstants, ChangeStatusListener.StatusChanger,
-					ChangePictureListener.PictureChanger {
+					ChangePictureListener.PictureChanger, AddFriendListener.FriendAdder {
 	
 	/* Instance variables for North Controller */
 	private JTextField nameField;
@@ -181,13 +181,13 @@ public class FacePamphlet extends ConsoleProgram
 	
 	private void addAddFriendField() {
 		addFriendField = new JTextField(TEXT_FIELD_SIZE);
-		addFriendField.addActionListener(new AddFriendListener(addFriendField, currentProfile, database));
+		addFriendField.addActionListener(new AddFriendListener(addFriendField, this));
 		add(addFriendField, WEST);
 	}
 	
 	private void addAddFriendButton() {
 		addFriendButton = new JButton("Add Friend");
-		addFriendButton.addActionListener(new AddFriendListener(addFriendField, currentProfile, database));
+		addFriendButton.addActionListener(new AddFriendListener(addFriendField, this));
 		add(addFriendButton, WEST);
 	}
     
@@ -201,13 +201,13 @@ public class FacePamphlet extends ConsoleProgram
 			/* Stub */
 			if (currentProfile != null) {
 				currentProfile.setStatus(changeStatusField.getText());
-				System.out.println("Status has been updated to: " + changeStatusField.getText());
+				println("Status has been updated to: " + changeStatusField.getText());
 			} else if (currentProfile == null) {
-				System.out.println("No profile selected. Add or lookup a profile to change their status");
+				println("No profile selected. Add or lookup a profile to change their status");
 			} else {
-				System.out.println("Something went wrong");
+				println("Something went wrong");
 			}
-			System.out.println("Current profile is: " + currentProfile);
+			println("Current profile is: " + currentProfile);
 		}
 	}
     
@@ -219,15 +219,38 @@ public class FacePamphlet extends ConsoleProgram
 				GImage image = null;
 				try {
 					image = new GImage(changePictureField.getText());
-					System.out.println("That is an image! It will be added.");
+					println("That is an image! It will be added.");
 					currentProfile.setImage(image);
 				} catch (ErrorException ex) {
-					System.out.println("That file doesn't exist! Try again.");
+					println("That file doesn't exist! Try again.");
 				}
 			} else if (currentProfile == null) {
-				System.out.println("No profile selected. Add or lookup a profile to change their picture");
+				println("No profile selected. Add or lookup a profile to change their picture");
 			}
-			System.out.println("Current profile is: " + currentProfile);
+			println("Current profile is: " + currentProfile);
+		}
+    }
+    
+    @Override
+    public void addFriend() {
+    	if (fieldIsNotEmpty(addFriendField)) {
+			/* Stub */
+			if (currentProfile != null) {
+				if (database.containsProfile(addFriendField.getText())) {
+					if (currentProfile.addFriend(addFriendField.getText())) {
+						println(addFriendField.getText() + " added as a friend.");
+						FacePamphletProfile profile = database.getProfile(addFriendField.getText());
+						profile.addFriend(currentProfile.getName());
+					} else {
+						println("You are already friends with " + addFriendField.getText() + "!");
+					}
+				} else {
+					println("That profile doesn't exist, so we can't add them as your friend.");
+				}
+			} else {
+				println("You must lookup a profile or add a new one before you can add friends!");
+			}
+			println("Current profile is: " + currentProfile);
 		}
     }
 }
