@@ -313,19 +313,23 @@ public class FacePamphlet extends Program
     	if (fieldIsNotEmpty(addFriendField)) {
 			/* Stub */
 			if (currentProfile != null) {
-				if (database.containsProfile(addFriendField.getText())) {
-					if (currentProfile.addFriend(addFriendField.getText())) {
-						System.out.println(addFriendField.getText() + " added as a friend.");
-						friendAddedMessage(addFriendField.getText());
-						FacePamphletProfile profile = database.getProfile(addFriendField.getText());
-						profile.addFriend(currentProfile.getName());
+				if (!currentProfile.getName().equals(addFriendField.getText())) {
+					if (database.containsProfile(addFriendField.getText())) {
+						if (currentProfile.addFriend(addFriendField.getText())) {
+							System.out.println(addFriendField.getText() + " added as a friend.");
+							friendAddedMessage(addFriendField.getText());
+							FacePamphletProfile profile = database.getProfile(addFriendField.getText());
+							profile.addFriend(currentProfile.getName());
+						} else {
+							System.out.println("You are already friends with " + addFriendField.getText() + "!");
+							alreadyFriendsMessage(addFriendField.getText());
+						}
 					} else {
-						System.out.println("You are already friends with " + addFriendField.getText() + "!");
-						alreadyFriendsMessage(addFriendField.getText());
+						System.out.println("That profile doesn't exist, so we can't add them as your friend.");
+						profileDoesNotExistCannotAddFriendMessage(addFriendField.getText());
 					}
 				} else {
-					System.out.println("That profile doesn't exist, so we can't add them as your friend.");
-					profileDoesNotExistCannotAddFriendMessage(addFriendField.getText());
+					cannotAddSelfAsFriendMessage();
 				}
 			} else {
 				lookupProfileToAddFriendMessage();
@@ -350,5 +354,9 @@ public class FacePamphlet extends Program
     
     private void lookupProfileToAddFriendMessage() {
     	canvas.showMessage("You must lookup a profile or add a new one before you can add friends!");
+    }
+    
+    private void cannotAddSelfAsFriendMessage() {
+    	canvas.showMessage("You can't add yourself as a friend!");
     }
 }
