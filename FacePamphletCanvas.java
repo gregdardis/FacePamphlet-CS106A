@@ -77,6 +77,19 @@ public class FacePamphletCanvas extends GCanvas
 			displayImage(profile.getImage());
 		}
 		displayStatus(profile.getName(), profile.getStatus());
+		displayFriends(profile);
+	}
+	
+	private void displayFriends(FacePamphletProfile profile) {
+		Iterator<String> iterator = profile.getFriends();
+		int i = 0;
+		while (iterator.hasNext()) {
+			String friendName = iterator.next();
+			GLabel friendLabel = new GLabel(friendName, LEFT_MARGIN + IMAGE_WIDTH + FRIENDS_SIDE_MARGIN, FRIENDS_TOP_MARGIN + (i * SPACE_BETWEEN_FRIENDS));
+			friendLabel.setFont(PROFILE_FRIEND_FONT);
+			add(friendLabel);
+			i++;
+		}
 	}
 	
 	private void displayStatus(String name, String status) {
