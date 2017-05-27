@@ -69,7 +69,39 @@ public class FacePamphletCanvas extends GCanvas
 	 * the user, and a list of the user's friends in the social network.
 	 */
 	public void displayProfile(FacePamphletProfile profile) {
-		// You fill this in
+		removeAll();
+		displayName(profile.getName());
+		if (profile.getImage() == null) {
+			drawPlaceholderImageBox();
+		} else {
+			displayImage(profile.getImage());
+		}
+	}
+	
+	private void drawPlaceholderImageBox() {
+		GRect noImage = new GRect(LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN, IMAGE_WIDTH, IMAGE_HEIGHT);
+		add(noImage);
+		GLabel noImageLabel = new GLabel("No Picture");
+		noImageLabel.setFont(PROFILE_IMAGE_FONT);
+		add(noImageLabel, (LEFT_MARGIN + (IMAGE_WIDTH - noImageLabel.getWidth()) / 2), TOP_MARGIN + IMAGE_MARGIN + ((IMAGE_HEIGHT + noImageLabel.getHeight()) / 2));
+		System.out.println(noImageLabel.getHeight());
+	}
+	
+	private void displayName(String name) {
+		GLabel nameLabel = new GLabel(name);
+		nameLabel.setFont(PROFILE_NAME_FONT);
+		nameLabel.setColor(PROFILE_NAME_FONT_COLOR);
+		add(nameLabel, LEFT_MARGIN, TOP_MARGIN);
+	}
+	
+	private void displayImage(GImage image) {
+//		double width = image.getWidth();
+//		double height = image.getHeight();
+		
+		// TODO: scale the provided image to fit :) <3
+		
+		image.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
+		add(image, LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN);
 	}
 
 	

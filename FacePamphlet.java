@@ -156,6 +156,7 @@ public class FacePamphlet extends Program
 					}
 					System.out.println("Current profile is: " + currentProfile);
 				} else {
+					canvas.displayProfile(currentProfile);
 					boxIsEmptyMessage();
 				}
 			}

@@ -1,3 +1,6 @@
+import java.awt.*;
+
+
 /*
  * File: FacePamphletConstants.java
  * --------------------------------
@@ -29,6 +32,9 @@ public interface FacePamphletConstants {
 	/** Name of font used to display the name in a user's profile */
 	public static final String PROFILE_NAME_FONT = "Dialog-24";
 	
+	/** Color of font used to display the name in a user's profile */
+	public static final Color PROFILE_NAME_FONT_COLOR = Color.BLUE;
+	
 	/** Name of font used to display the text "No Image" in user
 	 *  profiles that do not contain an actual image */
 	public static final String PROFILE_IMAGE_FONT = "Dialog-24";
@@ -55,7 +61,7 @@ public interface FacePamphletConstants {
 	 *  text that appears near the bottom of the display */
 	public static final double BOTTOM_MESSAGE_MARGIN = 20;
 
-	/** The number of pixels in the hortizontal margin between the 
+	/** The number of pixels in the horizontal margin between the 
 	 *  left side of the canvas display area and the Name, Image, and 
 	 *  Status components that are display in the profile */	
 	public static final double LEFT_MARGIN = 20;	
@@ -63,7 +69,7 @@ public interface FacePamphletConstants {
 	/** The number of pixels in the vertical margin between the top 
 	 *  of the canvas display area and the top (NOT the baseline) of 
 	 *  the Name component that is displayed in the profile */	
-	public static final double TOP_MARGIN = 20;	
+	public static final double TOP_MARGIN = 50;	
 	
 	/** The number of pixels in the vertical margin between the 
 	 *  baseline of the Name component and the top of the Image 
