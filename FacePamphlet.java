@@ -80,6 +80,7 @@ public class FacePamphlet extends Program
 						database.addProfile(profile);
 						addNewProfileMessage(profile);
 						currentProfile = profile;
+						canvas.displayProfile(currentProfile);
 					}
 				}
 				else {
@@ -112,6 +113,7 @@ public class FacePamphlet extends Program
 						profileDeletedMessage(nameField.getText());
 						database.deleteProfile(nameField.getText());
 						currentProfile = null;
+						canvas.displayProfile(currentProfile);
 					} else {
 						profileDoesNotExistMessage(nameField.getText());
 					}
@@ -140,6 +142,7 @@ public class FacePamphlet extends Program
 					if (database.containsProfile(nameField.getText())) {
 						lookedUpUserMessage(nameField.getText());
 						currentProfile = database.getProfile(nameField.getText());
+						canvas.displayProfile(currentProfile);
 					} else {
 						profileDoesNotExistMessage(nameField.getText());
 						currentProfile = null;
@@ -268,6 +271,7 @@ public class FacePamphlet extends Program
 					image = new GImage(changePictureField.getText());
 					existingImageMessage();
 					currentProfile.setImage(image);
+					canvas.displayProfile(currentProfile);
 				} catch (ErrorException ex) {
 					badImageNameMessage(changePictureField.getText());
 				}
@@ -301,6 +305,7 @@ public class FacePamphlet extends Program
 							friendAddedMessage(addFriendField.getText());
 							FacePamphletProfile profile = database.getProfile(addFriendField.getText());
 							profile.addFriend(currentProfile.getName());
+							canvas.displayProfile(currentProfile);
 						} else {
 							alreadyFriendsMessage(addFriendField.getText());
 						}

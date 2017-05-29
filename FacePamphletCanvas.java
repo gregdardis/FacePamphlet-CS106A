@@ -70,14 +70,17 @@ public class FacePamphletCanvas extends GCanvas
 	 */
 	public void displayProfile(FacePamphletProfile profile) {
 		removeAll();
-		displayName(profile.getName());
-		if (profile.getImage() == null) {
-			drawPlaceholderImageBox();
-		} else {
-			displayImage(profile.getImage());
+		if (profile != null) {
+			displayName(profile.getName());
+			if (profile.getImage() == null) {
+				drawPlaceholderImageBox();
+			} else {
+				displayImage(profile.getImage());
+			}
+			displayStatus(profile.getName(), profile.getStatus());
+			displayFriends(profile);
 		}
-		displayStatus(profile.getName(), profile.getStatus());
-		displayFriends(profile);
+		
 	}
 	
 	private void displayFriends(FacePamphletProfile profile) {
