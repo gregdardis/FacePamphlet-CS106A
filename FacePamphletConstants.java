@@ -80,6 +80,6 @@ public interface FacePamphletConstants {
 	 *  the bottom of the Image and the baseline of the Status component 
 	 *  in the profile */		
 	public static final double STATUS_MARGIN = 40;
-
+	
 }
 

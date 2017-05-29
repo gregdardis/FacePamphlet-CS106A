@@ -22,7 +22,6 @@ public class FacePamphletDatabase implements FacePamphletConstants {
 	public void addProfile(FacePamphletProfile profile) {
 		database.put(profile.getName(), profile);
 	}
-
 	
 	/** 
 	 * This method returns the profile associated with the given name 
@@ -35,7 +34,6 @@ public class FacePamphletDatabase implements FacePamphletConstants {
 		}
 		return null;
 	}
-	
 	
 	/** 
 	 * This method removes the profile associated with the given name
@@ -60,7 +58,6 @@ public class FacePamphletDatabase implements FacePamphletConstants {
 		
 	}
 	
-	
 	/** 
 	 * This method returns true if there is a profile in the database 
 	 * that has the given name.  It returns false otherwise.
@@ -71,5 +68,4 @@ public class FacePamphletDatabase implements FacePamphletConstants {
 		}
 		return false;
 	}
-
 }

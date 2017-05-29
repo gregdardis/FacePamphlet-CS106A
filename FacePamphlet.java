@@ -422,4 +422,6 @@ public class FacePamphlet extends Program
     private void cannotAddSelfAsFriendMessage() {
     	canvas.showMessage("You can't add yourself as a friend!");
     }
+    
+    // TODO: make it so if lookupButton is pressed with nothing in the textField, it sets currentprofile to null and updates the displayProfile.
 }
