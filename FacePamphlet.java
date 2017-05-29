@@ -32,18 +32,21 @@ public class FacePamphlet extends Program
 	
 	/* Instance variables of other classes */
 	private FacePamphletProfile currentProfile = null;
-	private FacePamphletDatabase database = new FacePamphletDatabase();
+	private ProfileManager database;
 	private FacePamphletCanvas canvas = new FacePamphletCanvas();
+	private Database db = new Database();
 
 	/**
 	 * This method has the responsibility for initializing the interactors in the application
 	 * resizing the window, and adding the canvas for the profiles to be drawn on.
 	 */
 	public void init() {
+		database = new ProfileManager(db);
 		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
 		add(canvas);
+		db.connect();
     }
 	
 	/** Runs long enough after init that the message will be printed to the canvas. 
