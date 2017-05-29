@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class Database {
+public class Database implements DatabaseConstants {
 	
 	/* Instance variables */
 	private Connection connection;
