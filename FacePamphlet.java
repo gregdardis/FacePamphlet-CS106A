@@ -49,10 +49,7 @@ public class FacePamphlet extends Program
 		createWestController();
 		add(canvas);
 		db.connect();
-		db.createTable("CREATE TABLE IF NOT EXISTS Profiles (\n"
-				+ " name TEXT PRIMARY KEY, \n"
-				+ " status TEXT, \n"
-				+ " image BLOB);");
+		db.createTable("Profiles", "name TEXT PRIMARY KEY", "status TEXT", "image BLOB");
 		db.close();
     }
 	
