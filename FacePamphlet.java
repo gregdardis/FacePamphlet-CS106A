@@ -45,7 +45,7 @@ public class FacePamphlet extends Program
 	 * resizing the window, and adding the canvas for the profiles to be drawn on.
 	 */
 	public void init() {
-		database = new ProfileManager(db);
+		database = new ProfileManager(profilesDataSource);
 		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 		createNorthController();
 		createWestController();
@@ -53,7 +53,6 @@ public class FacePamphlet extends Program
 		db.connect();
 		profilesDataSource.createTable();
 		friendsDataSource.createTable();
-		db.close();
     }
 	
 	/** Runs long enough after init that the message will be printed to the canvas. 

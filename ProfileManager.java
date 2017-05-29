@@ -12,10 +12,10 @@ public class ProfileManager implements FacePamphletConstants {
 	
 	/* Instance variables */
 	private HashMap<String, FacePamphletProfile> database = new HashMap<String, FacePamphletProfile>();
-	private Database db;
+	private ProfilesDataSource profilesDataSource;
 	
-	public ProfileManager(Database db) {
-		this.db = db;
+	public ProfileManager(ProfilesDataSource profilesDataSource) {
+		this.profilesDataSource = profilesDataSource;
 	}
 	
 	/** 
@@ -26,6 +26,7 @@ public class ProfileManager implements FacePamphletConstants {
 	 */
 	public void addProfile(FacePamphletProfile profile) {
 		database.put(profile.getName(), profile);
+		profilesDataSource.addProfile(profile);
 	}
 	
 	/** 

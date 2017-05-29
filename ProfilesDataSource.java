@@ -18,4 +18,11 @@ public class ProfilesDataSource implements DatabaseConstants {
 		);
 	}
 	
+	public void addProfile(FacePamphletProfile profile) {
+		String[] columns = { Profiles.COLUMN_NAME };
+		String[] values = { "'" + profile.getName() + "'" };
+		db.insertRecord(Profiles.TABLE_NAME, columns, values);
+		db.close();
+	}
+	
 }

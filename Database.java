@@ -39,12 +39,23 @@ public class Database implements DatabaseConstants {
 	}
 	
 	/** 
+	 * Inserts a record into a table.
+	 * @param columns Names of columns into which values will be inserted.
+	 * @param values Values which will be inserted into the corresponding columns.
+	 */
+	public void insertRecord(String tableName, String[] columns, String[] values) {
+		String sql = "INSERT INTO " + tableName + " (" + String.join(",\n", columns) + ")\nVALUES (" + String.join(",\n", values) + ");";
+		executeSQLNoResult(sql);
+	}
+	
+	/** 
 	 * Executes an sql statement and does not return a result.
 	 * Example: Creating or updating a table. 
 	 */
 	private void executeSQLNoResult(String sql) {
 		try {
 			Statement stmt = connection.createStatement();
+			System.out.println(sql);
 			stmt.execute(sql);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
