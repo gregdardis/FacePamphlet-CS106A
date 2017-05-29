@@ -12,6 +12,8 @@ import acm.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.sqlite.core.DB;
+
 public class FacePamphlet extends Program 
 					implements FacePamphletConstants, ChangeStatusListener.StatusChanger,
 					ChangePictureListener.PictureChanger, AddFriendListener.FriendAdder {
@@ -47,6 +49,11 @@ public class FacePamphlet extends Program
 		createWestController();
 		add(canvas);
 		db.connect();
+		db.createTable("CREATE TABLE IF NOT EXISTS Profiles (\n"
+				+ " name TEXT PRIMARY KEY, \n"
+				+ " status TEXT, \n"
+				+ " image BLOB);");
+		db.close();
     }
 	
 	/** Runs long enough after init that the message will be printed to the canvas. 
