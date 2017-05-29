@@ -92,8 +92,15 @@ public class FacePamphletCanvas extends GCanvas
 		}
 	}
 	
+	/* Displays the status for a profile. Called in displayProfile which is used to refresh a profile whenever any changes are made.
+	 * If the profile has no current status, displays "No current status" where the status should be displayed. */
 	private void displayStatus(String name, String status) {
-		GLabel statusLabel = new GLabel(name + " is " + status);
+		GLabel statusLabel;
+		if (status.equals("")) {
+			statusLabel = new GLabel("No current status");
+		} else {
+			statusLabel = new GLabel(name + " is " + status);
+		}
 		statusLabel.setFont(PROFILE_STATUS_FONT);
 		add(statusLabel, LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN + IMAGE_HEIGHT + STATUS_MARGIN);
 	}

@@ -55,7 +55,7 @@ public interface FacePamphletConstants {
 	public static final double FRIENDS_SIDE_MARGIN = 150;
 	
 	/** The number of pixels in the margin between the top of the canvas
-	 * and the friends header */
+	 * and the base of the friends header */
 	public static final double FRIENDS_TOP_MARGIN = 80;
 	
 	/** The number of pixels separating the names of friends in the friends list */
@@ -78,7 +78,7 @@ public interface FacePamphletConstants {
 	public static final double LEFT_MARGIN = 20;	
 
 	/** The number of pixels in the vertical margin between the top 
-	 *  of the canvas display area and the top (NOT the baseline) of 
+	 *  of the canvas display area and the baseline) of 
 	 *  the Name component that is displayed in the profile */	
 	public static final double TOP_MARGIN = 50;	
 	
@@ -88,7 +88,7 @@ public interface FacePamphletConstants {
 	public static final double IMAGE_MARGIN = 20;
 
 	/** The number of vertical pixels in the vertical margin between 
-	 *  the bottom of the Image and the top of the Status component 
+	 *  the bottom of the Image and the baseline of the Status component 
 	 *  in the profile */		
 	public static final double STATUS_MARGIN = 40;
 

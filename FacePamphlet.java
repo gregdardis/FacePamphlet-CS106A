@@ -244,9 +244,11 @@ public class FacePamphlet extends Program
     	return field.getText().length() != 0;
     }
     
+    /* Checks that there is a profile selected, then sets the status for it and tells the user that it is doing that.
+     * If there is no profile selected and the user tries to change their status, tells them to add or lookup a profile
+     * NOTE: still works if the changeStatusField is empty, which allows the user to change their status to "No current status" */
     @Override
     public void changeStatus() {
-    	if (fieldIsNotEmpty(changeStatusField)) {
 			if (currentProfile != null) {
 				currentProfile.setStatus(changeStatusField.getText());
 				System.out.println("Status has been updated to: " + changeStatusField.getText());
@@ -256,13 +258,14 @@ public class FacePamphlet extends Program
 				noProfileSelectedCannotChangeStatusMessage();
 			}
 			System.out.println("Current profile is: " + currentProfile);
-		} else {
-			boxIsEmptyMessage();
-		}
 	}
     
     private void updatedStatusMessage(String status) {
-    	canvas.showMessage("Status has been updated to: " + status);
+    	if (status.equals("")) {
+    		canvas.showMessage("You now have no current status.");
+    	} else {
+    		canvas.showMessage("Status has been updated to: " + status);
+    	}
     }
     
     private void noProfileSelectedCannotChangeStatusMessage() {
