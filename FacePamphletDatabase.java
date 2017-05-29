@@ -9,18 +9,9 @@
 import java.util.*;
 
 public class FacePamphletDatabase implements FacePamphletConstants {
-
+	
+	/* Instance variables */
 	private HashMap<String, FacePamphletProfile> database = new HashMap<String, FacePamphletProfile>();
-	
-	/** 
-	 * Constructor
-	 * This method takes care of any initialization needed for 
-	 * the database.
-	 */
-	public FacePamphletDatabase() {
-		
-	}
-	
 	
 	/** 
 	 * This method adds the given profile to the database.  If the 

@@ -13,15 +13,15 @@ import java.util.*;
 
 public class FacePamphletProfile implements FacePamphletConstants {
 	
+	/* Instance variables */
 	private String name;
 	private String status = "";
 	private GImage image = null;
 	private ArrayList<String> friendList = new ArrayList<String>();
 	
 	/** 
-	 * Constructor
-	 * This method takes care of any initialization needed for
-	 * the profile.
+	 * Constructor.
+	 * Takes a name and makes it the name for the profile.
 	 */
 	public FacePamphletProfile(String name) {
 		this.name = name;

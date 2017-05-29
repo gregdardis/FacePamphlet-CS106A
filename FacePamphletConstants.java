@@ -50,9 +50,6 @@ public interface FacePamphletConstants {
 	 *  of friends in a profile */
 	public static final String PROFILE_FRIEND_FONT = "Dialog-16";
 	
-	/** The number of pixels separating the names of friends in the friends list */
-	public static final double SPACE_BETWEEN_FRIENDS = 20;
-	
 	/** The width (in pixels) that profile images should be displayed */
 	public static final double IMAGE_WIDTH = 200;
 

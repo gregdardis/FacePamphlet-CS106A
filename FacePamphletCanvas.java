@@ -40,8 +40,7 @@ public class FacePamphletCanvas extends GCanvas
 		}
 	}
 	
-	/**
-	 * Returns the x coordinate for a message that will make it centered on the screen */
+	/** Returns the x coordinate for a message that will make it centered on the screen */
 	private double getMessageXCoordinate(GLabel message) {
 		return (getWidth() - message.getWidth()) / 2;
 	}
