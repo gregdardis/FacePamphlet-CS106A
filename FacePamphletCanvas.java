@@ -74,7 +74,6 @@ public class FacePamphletCanvas extends GCanvas
 			displayStatus(profile.getName(), profile.getStatus());
 			displayFriends(profile);
 		}
-		
 	}
 	
 	/**
@@ -140,10 +139,6 @@ public class FacePamphletCanvas extends GCanvas
 	 * Displays the image for a profile, with dimensions IMAGE_HEIGHT and IMAGE_WIDTH.
 	 * Called in displayProfile which is used to refresh a profile whenever any changes are made. */
 	private void displayImage(GImage image) {
-//		double width = image.getWidth();
-//		double height = image.getHeight();
-// 		TODO: scale the provided image to fit :) <3
-		
 		image.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
 		add(image, LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN);
 	}
