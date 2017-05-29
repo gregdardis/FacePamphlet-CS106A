@@ -50,14 +50,6 @@ public interface FacePamphletConstants {
 	 *  of friends in a profile */
 	public static final String PROFILE_FRIEND_FONT = "Dialog-16";
 	
-	/** The number of pixels in the horizontal margin between the right
-	 * side of the image display and the header for the list of friends */
-	public static final double FRIENDS_SIDE_MARGIN = 150;
-	
-	/** The number of pixels in the margin between the top of the canvas
-	 * and the base of the friends header */
-	public static final double FRIENDS_TOP_MARGIN = 80;
-	
 	/** The number of pixels separating the names of friends in the friends list */
 	public static final double SPACE_BETWEEN_FRIENDS = 20;
 	

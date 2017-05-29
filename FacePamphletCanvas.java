@@ -15,16 +15,6 @@ public class FacePamphletCanvas extends GCanvas
 					implements FacePamphletConstants {
 	
 	/** 
-	 * Constructor
-	 * This method takes care of any initialization needed for 
-	 * the display
-	 */
-	public FacePamphletCanvas() {
-		
-	}
-
-	
-	/** 
 	 * This method displays a message string near the bottom of the 
 	 * canvas.  Every time this method is called, the previously 
 	 * displayed message (if any) is replaced by the new message text 
@@ -40,7 +30,8 @@ public class FacePamphletCanvas extends GCanvas
 		add(message, x, y);
 	}
 	
-	/* Checks if there is a message already displayed for the user at the bottom of the canvas.
+	/** 
+	 * Checks if there is a message already displayed for the user at the bottom of the canvas.
 	 * If there is, removes it. Otherwise, does nothing. */
 	private void removeOldMessage() {
 		GObject oldMessage = getElementAt(getWidth() / 2, getHeight() - BOTTOM_MESSAGE_MARGIN);
@@ -49,11 +40,15 @@ public class FacePamphletCanvas extends GCanvas
 		}
 	}
 	
-	/* Returns the x coordinate for a GLabel that will make it centered on the screen */
+	/**
+	 * Returns the x coordinate for a message that will make it centered on the screen */
 	private double getMessageXCoordinate(GLabel message) {
 		return (getWidth() - message.getWidth()) / 2;
 	}
 	
+	/** 
+	 * Returns the y coordinate for the message such that the distance between the bottom
+	 * of the screen and the baseline of the message is BOTTOM_MESSAGE_MARGIN */
 	private double getMessageYCoordinate(GLabel message) {
 		return (getHeight() - BOTTOM_MESSAGE_MARGIN);
 	}
@@ -83,20 +78,32 @@ public class FacePamphletCanvas extends GCanvas
 		
 	}
 	
+	/**
+	 * Displays a "Friends:" header at the top of a list of friends for a profile. 
+	 * Iterates through all of the friends for the profile and adds a GLabel for each to the canvas,
+	 * with spacing based on the height of the names so it changes dynamically 
+	 * Called in displayProfile which is used to refresh a profile whenever any changes are made */
 	private void displayFriends(FacePamphletProfile profile) {
+		GLabel friendsHeader = new GLabel("Friends:", getWidth() / 2, TOP_MARGIN + IMAGE_MARGIN);
+		friendsHeader.setFont(PROFILE_FRIEND_LABEL_FONT);
+		add(friendsHeader);
+		
 		Iterator<String> iterator = profile.getFriends();
 		int i = 0;
 		while (iterator.hasNext()) {
 			String friendName = iterator.next();
-			GLabel friendLabel = new GLabel(friendName, LEFT_MARGIN + IMAGE_WIDTH + FRIENDS_SIDE_MARGIN, FRIENDS_TOP_MARGIN + (i * SPACE_BETWEEN_FRIENDS));
+			GLabel friendLabel = new GLabel(friendName);
 			friendLabel.setFont(PROFILE_FRIEND_FONT);
+			friendLabel.setLocation(getWidth() / 2, TOP_MARGIN + IMAGE_MARGIN + friendsHeader.getHeight() + (friendLabel.getHeight() * i));
 			add(friendLabel);
 			i++;
 		}
 	}
 	
-	/* Displays the status for a profile. Called in displayProfile which is used to refresh a profile whenever any changes are made.
-	 * If the profile has no current status, displays "No current status" where the status should be displayed. */
+	/** 
+	 * Displays the status for a profile. 
+	 * If the profile has no current status, displays "No current status" where the status should be displayed. 
+	 * Called in displayProfile which is used to refresh a profile whenever any changes are made.*/
 	private void displayStatus(String name, String status) {
 		GLabel statusLabel;
 		if (status.equals("")) {
@@ -108,6 +115,10 @@ public class FacePamphletCanvas extends GCanvas
 		add(statusLabel, LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN + IMAGE_HEIGHT + STATUS_MARGIN);
 	}
 	
+	/** 
+	 * If there is no image for a profile, an empty rectangle with the dimensions of the images that appear
+	 * on user profiles appears with the words "No picture" in the middle.
+	 * Called in displayProfile if no image is associated with the profile. */
 	private void drawPlaceholderImageBox() {
 		GRect noImage = new GRect(LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN, IMAGE_WIDTH, IMAGE_HEIGHT);
 		add(noImage);
@@ -116,6 +127,9 @@ public class FacePamphletCanvas extends GCanvas
 		add(noImageLabel, (LEFT_MARGIN + (IMAGE_WIDTH - noImageLabel.getWidth()) / 2), TOP_MARGIN + IMAGE_MARGIN + ((IMAGE_HEIGHT + noImageLabel.getHeight()) / 2));
 	}
 	
+	/** 
+	 * Displays the name above the image box for a profile.
+	 * Called in displayProfile which is used to refresh a profile whenever any changes are made. */
 	private void displayName(String name) {
 		GLabel nameLabel = new GLabel(name);
 		nameLabel.setFont(PROFILE_NAME_FONT);
@@ -123,11 +137,13 @@ public class FacePamphletCanvas extends GCanvas
 		add(nameLabel, LEFT_MARGIN, TOP_MARGIN);
 	}
 	
+	/** 
+	 * Displays the image for a profile, with dimensions IMAGE_HEIGHT and IMAGE_WIDTH.
+	 * Called in displayProfile which is used to refresh a profile whenever any changes are made. */
 	private void displayImage(GImage image) {
 //		double width = image.getWidth();
 //		double height = image.getHeight();
-		
-		// TODO: scale the provided image to fit :) <3
+// 		TODO: scale the provided image to fit :) <3
 		
 		image.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
 		add(image, LEFT_MARGIN, TOP_MARGIN + IMAGE_MARGIN);
