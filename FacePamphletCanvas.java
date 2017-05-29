@@ -111,7 +111,6 @@ public class FacePamphletCanvas extends GCanvas
 		GLabel noImageLabel = new GLabel("No Picture");
 		noImageLabel.setFont(PROFILE_IMAGE_FONT);
 		add(noImageLabel, (LEFT_MARGIN + (IMAGE_WIDTH - noImageLabel.getWidth()) / 2), TOP_MARGIN + IMAGE_MARGIN + ((IMAGE_HEIGHT + noImageLabel.getHeight()) / 2));
-		System.out.println(noImageLabel.getHeight());
 	}
 	
 	private void displayName(String name) {

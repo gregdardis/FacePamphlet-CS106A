@@ -74,16 +74,13 @@ public class FacePamphlet extends Program
 				if (fieldIsNotEmpty(nameField)) {
 					if (database.containsProfile(nameField.getText())) {
 						profileAlreadyExistsMessage();
-						System.out.println(database.getProfile(nameField.getText()).toString());
 						currentProfile = database.getProfile(nameField.getText());
 					} else {
 						FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
 						database.addProfile(profile);
-						System.out.println("Added new profile named: " + profile.getName() + ".");
 						addNewProfileMessage(profile);
 						currentProfile = profile;
 					}
-					System.out.println("Current profile is: " + currentProfile);
 				}
 				else {
 					boxIsEmptyMessage();
@@ -111,17 +108,13 @@ public class FacePamphlet extends Program
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
-					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
 						profileDeletedMessage(nameField.getText());
 						database.deleteProfile(nameField.getText());
-						System.out.println("The profile was deleted.");
 						currentProfile = null;
 					} else {
-						System.out.println("That profile doesn't exist in the database.");
 						profileDoesNotExistMessage(nameField.getText());
 					}
-					System.out.println("Current profile is: " + currentProfile);
 				} else {
 					boxIsEmptyMessage();
 				}
@@ -144,17 +137,13 @@ public class FacePamphlet extends Program
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
-					/* Stub */
 					if (database.containsProfile(nameField.getText())) {
-						System.out.println("Lookup: " + database.getProfile(nameField.getText()).toString());
 						lookedUpUserMessage(nameField.getText());
 						currentProfile = database.getProfile(nameField.getText());
 					} else {
-						System.out.println("No profile with that name in the database");
 						profileDoesNotExistMessage(nameField.getText());
 						currentProfile = null;
 					}
-					System.out.println("Current profile is: " + currentProfile);
 				} else {
 					canvas.displayProfile(currentProfile);
 					boxIsEmptyMessage();
@@ -251,13 +240,11 @@ public class FacePamphlet extends Program
     public void changeStatus() {
 			if (currentProfile != null) {
 				currentProfile.setStatus(changeStatusField.getText());
-				System.out.println("Status has been updated to: " + changeStatusField.getText());
 				updatedStatusMessage(changeStatusField.getText());
+				canvas.displayProfile(currentProfile);
 			} else if (currentProfile == null) {
-				System.out.println("No profile selected. Add or lookup a profile to change their status");
 				noProfileSelectedCannotChangeStatusMessage();
 			}
-			System.out.println("Current profile is: " + currentProfile);
 	}
     
     private void updatedStatusMessage(String status) {
@@ -279,18 +266,14 @@ public class FacePamphlet extends Program
 				GImage image = null;
 				try {
 					image = new GImage(changePictureField.getText());
-					System.out.println("That is an image! It will be added.");
 					existingImageMessage();
 					currentProfile.setImage(image);
 				} catch (ErrorException ex) {
-					System.out.println("That file doesn't exist! Try again.");
 					badImageNameMessage(changePictureField.getText());
 				}
 			} else if (currentProfile == null) {
-				System.out.println("No profile selected. Add or lookup a profile to change their picture");
 				noProfileSelectedCannotChangePictureMessage();
 			}
-			System.out.println("Current profile is: " + currentProfile);
 		} else {
 			boxIsEmptyMessage();
 		}
@@ -311,21 +294,17 @@ public class FacePamphlet extends Program
     @Override
     public void addFriend() {
     	if (fieldIsNotEmpty(addFriendField)) {
-			/* Stub */
 			if (currentProfile != null) {
 				if (!currentProfile.getName().equals(addFriendField.getText())) {
 					if (database.containsProfile(addFriendField.getText())) {
 						if (currentProfile.addFriend(addFriendField.getText())) {
-							System.out.println(addFriendField.getText() + " added as a friend.");
 							friendAddedMessage(addFriendField.getText());
 							FacePamphletProfile profile = database.getProfile(addFriendField.getText());
 							profile.addFriend(currentProfile.getName());
 						} else {
-							System.out.println("You are already friends with " + addFriendField.getText() + "!");
 							alreadyFriendsMessage(addFriendField.getText());
 						}
 					} else {
-						System.out.println("That profile doesn't exist, so we can't add them as your friend.");
 						profileDoesNotExistCannotAddFriendMessage(addFriendField.getText());
 					}
 				} else {
@@ -334,7 +313,6 @@ public class FacePamphlet extends Program
 			} else {
 				lookupProfileToAddFriendMessage();
 			}
-			System.out.println("Current profile is: " + currentProfile);
 		} else {
 			boxIsEmptyMessage();
 		}
