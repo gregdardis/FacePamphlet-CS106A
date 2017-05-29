@@ -16,7 +16,8 @@ import org.sqlite.core.DB;
 
 public class FacePamphlet extends Program 
 					implements FacePamphletConstants, ChangeStatusListener.StatusChanger,
-					ChangePictureListener.PictureChanger, AddFriendListener.FriendAdder {
+					ChangePictureListener.PictureChanger, AddFriendListener.FriendAdder,
+					DatabaseConstants {
 	
 	/* Instance variables for North Controller */
 	private JTextField nameField;
@@ -49,7 +50,7 @@ public class FacePamphlet extends Program
 		createWestController();
 		add(canvas);
 		db.connect();
-		db.createTable("Profiles", "name TEXT PRIMARY KEY", "status TEXT", "image BLOB");
+		db.createTable(Profile.TABLE_NAME, Profile.COLUMN_NAME_CREATION, Profile.COLUMN_STATUS_CREATION, Profile.COLUMN_IMAGE_CREATION);
 		db.close();
     }
 	
