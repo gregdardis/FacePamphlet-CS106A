@@ -1,8 +1,13 @@
 import java.sql.*;
 
+// TODO: close database upon pressing the exit button.
 // TODO: Images.
 // TODO: Friends stuff with database.
 // TODO: Deal with adding people who already exist? I think the functionality might already be fine. Double check that.
+
+/* Problems with images:
+ * updateRecord takes a String array, not a Blob. How do I fix this? Do I make a separate updateRecord which takes a Blob?
+ * Does my method for getting a pixel array and putting it into a byte array and vice versa, work? */
 
 public class Database implements DatabaseConstants {
 	

@@ -8,6 +8,7 @@
  * and a list of friends.
  */
 
+/* Give FPP a file path instead of an image then make the image when you call getimage. */
 import acm.graphics.*;
 import java.util.*;
 

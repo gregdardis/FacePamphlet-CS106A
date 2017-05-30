@@ -51,10 +51,10 @@ public interface FacePamphletConstants {
 	public static final String PROFILE_FRIEND_FONT = "Dialog-16";
 	
 	/** The width (in pixels) that profile images should be displayed */
-	public static final double IMAGE_WIDTH = 200;
+	public static final int IMAGE_WIDTH = 200;
 
 	/** The height (in pixels) that profile images should be displayed */
-	public static final double IMAGE_HEIGHT = 200;	
+	public static final int IMAGE_HEIGHT = 200;	
 
 	/** The number of pixels in the vertical margin between the bottom 
 	 *  of the canvas display area and the baseline for the message 

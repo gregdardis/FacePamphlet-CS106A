@@ -405,6 +405,7 @@ public class FacePamphlet extends Program
 			}
 		} else {
 			boxIsEmptyMessage();
+			db.close();
 		}
     }
     
