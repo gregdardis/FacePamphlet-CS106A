@@ -1,6 +1,5 @@
 import java.sql.*;
 
-// TODO: Delete from database when deleted from database HashMap by delete button.
 // TODO: Images.
 // TODO: Friends stuff with database.
 // TODO: Deal with adding people who already exist? I think the functionality might already be fine. Double check that.
@@ -45,6 +44,7 @@ public class Database implements DatabaseConstants {
 	
 	/** 
 	 * Inserts a record into a table.
+	 * @param tableName Name of the table to insert a record into.
 	 * @param columns Names of columns into which values will be inserted.
 	 * @param values Values which will be inserted into the corresponding columns.
 	 */
@@ -64,6 +64,14 @@ public class Database implements DatabaseConstants {
 		executeSQLNoResult(sql);
 	}
 	
+	/**
+	 * Updates a record in a table.
+	 * @param tableName Name of the table in which to update a record.
+	 * @param columns Names of the columns of which to update a record.
+	 * @param values Values you want to put into the column you are updating. 
+	 * @param whereCondition Condition of what records to update. Example: "name = Greg" 
+	 * updates selected columns of records where name = Greg. 
+	 */
 	public void updateRecord(String tableName, String[] columns, String[] values, String whereCondition) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < columns.length - 1; i++) {
@@ -79,11 +87,25 @@ public class Database implements DatabaseConstants {
 		executeSQLNoResult(sql);
 	}
 	
+	/**
+	 * Selects without a WHERE condition.
+	 * @param projection What you want to select from the table. Example: "*".
+	 * @param tableName Name of the table you want to select from. */
 	public ResultSet executeSelectQuery(String[] projection, String tableName) {
 		String whereCondition = "1=1";
 		return executeSelectQuery(projection, tableName, whereCondition);
 	}
 	
+	/**
+	 * Selects only records with a certain whereCondition.
+	 * @param projection What you want to select from the table. Example: "*".
+	 * @param tableName Name of the table you want to select from. 
+	 * @param whereCondition Condition of what records to select. 
+	 * 
+	 * Returns a ResultSet which can be iterated over.
+	 * Example use: Getting profiles from database and putting them in database HashMap
+	 * upon startup of application. 
+	 */
 	public ResultSet executeSelectQuery(String[] projection, String tableName, String whereCondition) {
 		String sql = "SELECT " + String.join(", ", projection) + " FROM " + tableName + " WHERE " + whereCondition + ";";
 		return executeSQLForResult(sql);
@@ -102,6 +124,10 @@ public class Database implements DatabaseConstants {
 		}
 	}
 	
+	/** 
+	 * Executes an SQL statement and returns a ResultSet which can be iterated over.
+	 * Example: Selecting from a table.
+	 * */
 	private ResultSet executeSQLForResult(String sql) {
 		ResultSet rs = null;
 		try {
@@ -117,6 +143,4 @@ public class Database implements DatabaseConstants {
 	public static String quotations(String str) {
 		return "'" + str + "'";
 	}
-	
-	
 }
