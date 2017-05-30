@@ -26,6 +26,12 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	public FacePamphletProfile(String name) {
 		this.name = name;
 	}
+	
+	public FacePamphletProfile(String name, String status, GImage image) {
+		this.name = name;
+		this.status = status;
+		this.image = image;
+	}
 
 	/** This method returns the name associated with the profile. */ 
 	public String getName() {

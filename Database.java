@@ -63,6 +63,16 @@ public class Database implements DatabaseConstants {
 		executeSQLNoResult(sql);
 	}
 	
+	public ResultSet executeSelectQuery(String[] projection, String tableName) {
+		String whereCondition = "1=1";
+		return executeSelectQuery(projection, tableName, whereCondition);
+	}
+	
+	public ResultSet executeSelectQuery(String[] projection, String tableName, String whereCondition) {
+		String sql = "SELECT " + String.join(", ", projection) + " FROM " + tableName + " WHERE " + whereCondition + ";";
+		return executeSQLForResult(sql);
+	}
+	
 	/** 
 	 * Executes an sql statement and does not return a result.
 	 * Example: Creating or updating a table. 
@@ -74,6 +84,17 @@ public class Database implements DatabaseConstants {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	private ResultSet executeSQLForResult(String sql) {
+		ResultSet rs = null;
+		try {
+			Statement stmt = connection.createStatement();
+			rs = stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} 
+		return rs;
 	}
 	
 	/** Puts a string in quotations and returns it. */

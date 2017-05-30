@@ -104,7 +104,7 @@ public class FacePamphletCanvas extends GCanvas
 	 * Called in displayProfile which is used to refresh a profile whenever any changes are made.*/
 	private void displayStatus(String name, String status) {
 		GLabel statusLabel;
-		if (status.equals("")) {
+		if (status == null || status.equals("")) {
 			statusLabel = new GLabel("No current status");
 		} else {
 			statusLabel = new GLabel(name + " is " + status);

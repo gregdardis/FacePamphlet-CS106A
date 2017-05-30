@@ -11,11 +11,12 @@ import java.util.*;
 public class ProfileManager implements FacePamphletConstants {
 	
 	/* Instance variables */
-	private HashMap<String, FacePamphletProfile> database = new HashMap<String, FacePamphletProfile>();
+	private Map<String, FacePamphletProfile> database;
 	private ProfilesDataSource profilesDataSource;
 	
 	public ProfileManager(ProfilesDataSource profilesDataSource) {
 		this.profilesDataSource = profilesDataSource;
+		database = profilesDataSource.getAllProfiles();
 	}
 	
 	/** 
