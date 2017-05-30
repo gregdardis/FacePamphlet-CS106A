@@ -117,8 +117,8 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 		try {
 			String name = rs.getString(Profiles.COLUMN_NAME);
 			String status = rs.getString(Profiles.COLUMN_STATUS);
-			GImage image = null;
-			profile = new FacePamphletProfile(name, status, image);
+			String filename = "";
+			profile = new FacePamphletProfile(name, status, filename);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}

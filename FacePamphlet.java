@@ -344,15 +344,13 @@ public class FacePamphlet extends Program
     public void changePicture() {
     	if (fieldIsNotEmpty(changePictureField)) {
 			if (currentProfile != null) {
-				GImage image = null;
-				try {
-					image = new GImage(changePictureField.getText());
-					existingImageMessage();
-					currentProfile.setImage(image);
-					canvas.displayProfile(currentProfile);
-				} catch (ErrorException ex) {
+				currentProfile.setImageFilename(changePictureField.getText());
+				if (currentProfile.getImage() == null) {
 					badImageNameMessage(changePictureField.getText());
+					return;
 				}
+				canvas.displayProfile(currentProfile);
+				existingImageMessage();
 			} else if (currentProfile == null) {
 				noProfileSelectedCannotChangePictureMessage();
 			}
@@ -373,7 +371,7 @@ public class FacePamphlet extends Program
     
     /** Called in changePicture if a user tries to change the picture without a profile selected. */
     private void noProfileSelectedCannotChangePictureMessage() {
-    	canvas.showMessage("No profile selected. Add or lookup a profile to change their picture");
+    	canvas.showMessage("No profile selected. Add or lookup a profile to change their picture.");
     }
     
     /** Adds a friend to a profile. Checks if a profile is selected, then checks the user isn't trying to
