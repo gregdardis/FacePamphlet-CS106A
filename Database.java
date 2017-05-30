@@ -1,5 +1,10 @@
 import java.sql.*;
 
+// TODO: Delete from database when deleted from database HashMap by delete button.
+// TODO: Images.
+// TODO: Friends stuff with database.
+// TODO: Deal with adding people who already exist? I think the functionality might already be fine. Double check that.
+
 public class Database implements DatabaseConstants {
 	
 	/* Instance variables */
