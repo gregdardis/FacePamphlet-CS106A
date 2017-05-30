@@ -48,6 +48,21 @@ public class Database implements DatabaseConstants {
 		executeSQLNoResult(sql);
 	}
 	
+	public void updateRecord(String tableName, String[] columns, String[] values, String whereCondition) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < columns.length - 1; i++) {
+			sb.append(columns[i]);
+			sb.append(" = ");
+			sb.append(values[i]);
+			sb.append(",");
+		}
+		sb.append(columns[columns.length - 1]);
+		sb.append(" = ");
+		sb.append(values[columns.length - 1]);
+		String sql = "UPDATE " + tableName + " SET " + sb.toString() + " WHERE " + whereCondition;
+		executeSQLNoResult(sql);
+	}
+	
 	/** 
 	 * Executes an sql statement and does not return a result.
 	 * Example: Creating or updating a table. 
@@ -55,11 +70,15 @@ public class Database implements DatabaseConstants {
 	private void executeSQLNoResult(String sql) {
 		try {
 			Statement stmt = connection.createStatement();
-			System.out.println(sql);
 			stmt.execute(sql);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	/** Puts a string in quotations and returns it. */
+	public static String quotations(String str) {
+		return "'" + str + "'";
 	}
 	
 	

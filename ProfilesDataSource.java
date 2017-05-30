@@ -20,8 +20,15 @@ public class ProfilesDataSource implements DatabaseConstants {
 	
 	public void addProfile(FacePamphletProfile profile) {
 		String[] columns = { Profiles.COLUMN_NAME };
-		String[] values = { "'" + profile.getName() + "'" };
+		String[] values = { Database.quotations(profile.getName()) };
 		db.insertRecord(Profiles.TABLE_NAME, columns, values);
+	}
+	
+	public void changeStatus(FacePamphletProfile profile) {
+		String[] columns = { Profiles.COLUMN_STATUS };
+		String[] values = { Database.quotations(profile.getStatus()) };
+		String whereCondition = Profiles.COLUMN_NAME + " = " + Database.quotations(profile.getName());
+		db.updateRecord(Profiles.TABLE_NAME, columns, values, whereCondition);
 		db.close();
 	}
 	

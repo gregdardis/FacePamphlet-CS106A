@@ -312,6 +312,7 @@ public class FacePamphlet extends Program
 				currentProfile.setStatus(changeStatusField.getText());
 				updatedStatusMessage(changeStatusField.getText());
 				canvas.displayProfile(currentProfile);
+				profilesDataSource.changeStatus(currentProfile);
 			} else if (currentProfile == null) {
 				noProfileSelectedCannotChangeStatusMessage();
 			}
