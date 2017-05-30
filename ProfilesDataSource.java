@@ -44,6 +44,14 @@ public class ProfilesDataSource implements DatabaseConstants {
 		db.updateRecord(Profiles.TABLE_NAME, columns, values, whereCondition);
 	}
 	
+	/** Updates the Profiles table with the profile's picture. */
+	public void changePicture(FacePamphletProfile profile) {
+		String[] columns = { Profiles.COLUMN_IMAGE };
+		String[] values = { };
+		String whereCondition = Profiles.COLUMN_NAME + " = " + Database.quotations(profile.getName());
+		db.updateRecord(Profiles.TABLE_NAME, columns, values, whereCondition);
+	}
+	
 	/** Deletes a whole profile from the Profiles table by deleting the record. */
 	public void deleteProfile(FacePamphletProfile profile) {
 		String whereCondition = Profiles.COLUMN_NAME + " = " + Database.quotations(profile.getName());
