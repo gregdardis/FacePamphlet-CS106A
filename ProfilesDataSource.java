@@ -35,6 +35,11 @@ public class ProfilesDataSource implements DatabaseConstants {
 		String[] values = { Database.quotations(profile.getStatus()) };
 		String whereCondition = Profiles.COLUMN_NAME + " = " + Database.quotations(profile.getName());
 		db.updateRecord(Profiles.TABLE_NAME, columns, values, whereCondition);
+	}
+	
+	public void deleteProfile(FacePamphletProfile profile) {
+		String whereCondition = Profiles.COLUMN_NAME + " = " + Database.quotations(profile.getName());
+		db.deleteRecord(Profiles.TABLE_NAME, whereCondition);
 		db.close();
 	}
 	

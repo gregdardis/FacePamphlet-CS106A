@@ -61,6 +61,7 @@ public class ProfileManager implements FacePamphletConstants {
 				friendsProfile.removeFriend(name);
 			}
 			database.remove(name);
+			profilesDataSource.deleteProfile(profile);
 		}
 		
 	}

@@ -53,6 +53,17 @@ public class Database implements DatabaseConstants {
 		executeSQLNoResult(sql);
 	}
 	
+	/**
+	 * Deletes a record from a table.
+	 * @param tableName Name of the table to delete records from. 
+	 * @param whereCondition Condition of what to delete. For example, "name = Greg" 
+	 * will delete all entries where name = Greg.
+	 */
+	public void deleteRecord(String tableName, String whereCondition) {
+		String sql = "DELETE FROM " + tableName + " WHERE " + whereCondition;
+		executeSQLNoResult(sql);
+	}
+	
 	public void updateRecord(String tableName, String[] columns, String[] values, String whereCondition) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < columns.length - 1; i++) {
