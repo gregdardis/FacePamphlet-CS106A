@@ -15,6 +15,7 @@ public class ProfilesDataSource implements DatabaseConstants {
 		this.db = db;
 	}
 	
+	/** Creates the Profiles table */
 	public void createTable() {
 		db.createTable(
 				Profiles.TABLE_NAME,
@@ -24,12 +25,18 @@ public class ProfilesDataSource implements DatabaseConstants {
 		);
 	}
 	
+	/**
+	 * Adds a profile to the Profiles table.
+	 * This method only adds the name to the table because that is all that
+	 * exists when the Profile is created and needs to be added to the table.
+	 */
 	public void addProfile(FacePamphletProfile profile) {
 		String[] columns = { Profiles.COLUMN_NAME };
 		String[] values = { Database.quotations(profile.getName()) };
 		db.insertRecord(Profiles.TABLE_NAME, columns, values);
 	}
 	
+	/** Updates the Profiles table with a profile's status. */
 	public void changeStatus(FacePamphletProfile profile) {
 		String[] columns = { Profiles.COLUMN_STATUS };
 		String[] values = { Database.quotations(profile.getStatus()) };
@@ -37,12 +44,17 @@ public class ProfilesDataSource implements DatabaseConstants {
 		db.updateRecord(Profiles.TABLE_NAME, columns, values, whereCondition);
 	}
 	
+	/** Deletes a whole profile from the Profiles table by deleting the record. */
 	public void deleteProfile(FacePamphletProfile profile) {
 		String whereCondition = Profiles.COLUMN_NAME + " = " + Database.quotations(profile.getName());
 		db.deleteRecord(Profiles.TABLE_NAME, whereCondition);
 		db.close();
 	}
 	
+	/** 
+	 * Gets profiles from Profiles table in SQLite database and adds them to the
+	 * a "profiles" HashMap to be used upon starting the application as the database.
+	 */
 	public Map<String, FacePamphletProfile> getAllProfiles() {
 		String[] projection = { "*" };
 		ResultSet rs = db.executeSelectQuery(projection, Profiles.TABLE_NAME);
@@ -58,6 +70,10 @@ public class ProfilesDataSource implements DatabaseConstants {
 		return profiles;
 	}
 	
+	/** 
+	 * Called upon starting the app, uses a ResultSet to make a FacePamphletProfile
+	 *  and return it to be used in the database HashMap.
+	 */
 	private FacePamphletProfile makeProfile(ResultSet rs) {
 		FacePamphletProfile profile = null;
 		try {
@@ -71,5 +87,4 @@ public class ProfilesDataSource implements DatabaseConstants {
 		
 		return profile;
 	}
-	
 }
