@@ -199,7 +199,7 @@ public class Database implements DatabaseConstants {
 	 * Executes an SQL statement and returns a ResultSet which can be iterated over.
 	 * Example: Selecting from a table.
 	 * */
-	private ResultSet executeSQLForResult(String sql) {
+	public ResultSet executeSQLForResult(String sql) {
 		ResultSet rs = null;
 		try {
 			Statement stmt = connection.createStatement();

@@ -10,9 +10,11 @@ import acm.graphics.GImage;
  */
 public class ProfilesDataSource implements DatabaseConstants, FacePamphletConstants {
 	private Database db;
+	private FriendsDataSource friendsDataSource;
 	
-	public ProfilesDataSource(Database db) {
+	public ProfilesDataSource(Database db, FriendsDataSource friendsDataSource) {
 		this.db = db;
+		this.friendsDataSource = friendsDataSource;
 	}
 	
 	/** Creates the Profiles table */
@@ -93,7 +95,7 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 		db.readPicture(Profiles.TABLE_NAME, Profiles.COLUMN_IMAGE, Profiles.IMAGE_DIRECTORY, name + ".jpg", Profiles.COLUMN_NAME + " = " + Database.quotations(name));
 		String filepath = Profiles.IMAGE_DIRECTORY + name + ".jpg";
 		profile = new FacePamphletProfile(name, status, filepath);
-		
+		profile.setFriendList(friendsDataSource.getFriendsList(profile));
 		return profile;
 	}
 }

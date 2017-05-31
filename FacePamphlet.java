@@ -37,8 +37,8 @@ public class FacePamphlet extends Program
 	private ProfileManager database;
 	private FacePamphletCanvas canvas = new FacePamphletCanvas();
 	private Database db = new Database();
-	private ProfilesDataSource profilesDataSource = new ProfilesDataSource(db);
 	private FriendsDataSource friendsDataSource = new FriendsDataSource(db);
+	private ProfilesDataSource profilesDataSource = new ProfilesDataSource(db, friendsDataSource);
 
 	/**
 	 * This method has the responsibility for initializing the interactors in the application
@@ -391,7 +391,7 @@ public class FacePamphlet extends Program
 							profile.addFriend(currentProfile.getName());
 							canvas.displayProfile(currentProfile);
 							friendAddedMessage(friendToAdd);
-							friendsDataSource.addFriend(currentProfile, friendToAdd);
+							friendsDataSource.addFriendToDatabase(currentProfile, friendToAdd);
 						} else {
 							alreadyFriendsMessage(friendToAdd);
 						}
