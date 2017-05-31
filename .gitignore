@@ -2,3 +2,5 @@
 *.html
 *.db
 sqlstatements.sql
+imagesToUse/
+savedImages/

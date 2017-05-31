@@ -10,6 +10,9 @@
 
 /* Give FPP a file path instead of an image then make the image when you call getimage. */
 import acm.graphics.*;
+import acm.util.ErrorException;
+
+import java.io.IOException;
 import java.util.*;
 
 public class FacePamphletProfile implements FacePamphletConstants {
@@ -17,7 +20,8 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	/* Instance variables */
 	private String name;
 	private String status = "";
-	private GImage image = null;
+	private String imageFilename = "";
+	private GImage image;
 	private ArrayList<String> friendList = new ArrayList<String>();
 	
 	/** 
@@ -28,10 +32,10 @@ public class FacePamphletProfile implements FacePamphletConstants {
 		this.name = name;
 	}
 	
-	public FacePamphletProfile(String name, String status, GImage image) {
+	public FacePamphletProfile(String name, String status, String imageFilename) {
 		this.name = name;
 		this.status = status;
-		this.image = image;
+		setImageFilename(imageFilename);
 	}
 
 	/** This method returns the name associated with the profile. */ 
@@ -42,14 +46,32 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	/** 
 	 * This method returns the image associated with the profile.  
 	 * If there is no image associated with the profile, the method
-	 * returns null. */ 
+	 * returns null. 
+	 */ 
+	/* TODO: see what happens if you return new GImage and imageFilename isn't an image file. */
 	public GImage getImage() {
-		return image;
+		if (imageFilename == null || imageFilename.equals("")) {
+			return null;
+		}
+			image = new GImage(imageFilename);
+			return image;
 	}
 
-	/** This method sets the image associated with the profile. */ 
-	public void setImage(GImage image) {
-		this.image = image;
+	/** 
+	 * Tries to create a new GImage using a filename. If the filename doesn't exist,
+	 * does not set imageFilename to be filename, and doesn't change image.
+	 * 
+	 * If the filename is valid, changes imageFilename to be filename, and makes
+	 * a new GImage and sets image equal to this new GImage.
+	 */ 
+	public boolean setImageFilename(String filename) {
+		try {
+			image = new GImage(filename);
+		} catch (ErrorException e) {
+			return false;
+		}
+		this.imageFilename = filename;	
+		return true;
 	}
 	
 	/** 

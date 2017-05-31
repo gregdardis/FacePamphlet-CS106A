@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.*;
 
 // TODO: close database upon pressing the exit button.
@@ -90,6 +95,68 @@ public class Database implements DatabaseConstants {
 		sb.append(values[columns.length - 1]);
 		String sql = "UPDATE " + tableName + " SET " + sb.toString() + " WHERE " + whereCondition;
 		executeSQLNoResult(sql);
+	}
+	
+	public void updatePicture(String tableName, String pictureColumn, String filepath, String whereCondition) {
+		String sql = "UPDATE " + tableName + " SET " + pictureColumn + " = ? WHERE " + whereCondition;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setBytes(1, readFile(filepath));
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/** Converts an image file into a byte array and returns it. */
+	private byte[] readFile(String filepath) {
+		File file = new File(filepath);
+		byte[] fileContent = null;
+		try {
+			fileContent = Files.readAllBytes(file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileContent;
+	}
+	
+	public void readPicture(String tableName, String pictureColumn, String imageDirectory, String imageFilename, String whereCondition) {
+		String sql = "SELECT " + pictureColumn + " FROM " + tableName + " WHERE " + whereCondition;
+		ResultSet rs = executeSQLForResult(sql);
+		FileOutputStream fos = null;
+		
+		try {
+			new File(imageDirectory).mkdirs();
+			File file = new File(imageDirectory + imageFilename);
+			fos = new FileOutputStream(file);
+			
+			if (rs.next()) {
+				InputStream input = rs.getBinaryStream(pictureColumn);
+				if (input == null) {
+					fos.close();
+					rs.close();
+					return;
+				}
+				byte[] buffer = new byte[1024];
+				while (input.read(buffer) > 0) {
+					fos.write(buffer);
+				}
+			}
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fos != null) {
+					fos.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException | IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
