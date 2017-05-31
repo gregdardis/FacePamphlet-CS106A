@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.sql.*;
 
@@ -118,6 +120,39 @@ public class Database implements DatabaseConstants {
 			e.printStackTrace();
 		}
 		return fileContent;
+	}
+	
+	public void readPicture(String tableName, String pictureColumn, String filepath, String whereCondition) {
+		String sql = "SELECT " + pictureColumn + " FROM " + tableName + " WHERE " + whereCondition;
+		ResultSet rs = executeSQLForResult(sql);
+		FileOutputStream fos = null;
+		
+		try {
+			File file = new File(filepath);
+			fos = new FileOutputStream(file);
+			System.out.println("Writing BLOB to file " + file.getAbsolutePath());
+			
+			if (rs.next()) {
+				InputStream input = rs.getBinaryStream(pictureColumn);
+				byte[] buffer = new byte[1024];
+				while (input.read(buffer) > 0) {
+					fos.write(buffer);
+				}
+			}
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fos != null) {
+					fos.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException | IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**

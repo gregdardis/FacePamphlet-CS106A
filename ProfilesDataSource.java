@@ -114,14 +114,18 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 	 */
 	private FacePamphletProfile makeProfile(ResultSet rs) {
 		FacePamphletProfile profile = null;
+		String name;
+		String status;
 		try {
-			String name = rs.getString(Profiles.COLUMN_NAME);
-			String status = rs.getString(Profiles.COLUMN_STATUS);
-			String filename = "";
-			profile = new FacePamphletProfile(name, status, filename);
+			name = rs.getString(Profiles.COLUMN_NAME);
+			status = rs.getString(Profiles.COLUMN_STATUS);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return null;
 		}
+		String filename = Profiles.IMAGE_DIRECTORY + name + ".jpg";
+		db.readPicture(Profiles.TABLE_NAME, Profiles.COLUMN_IMAGE, filename, Profiles.COLUMN_NAME + " = " + Database.quotations(name));
+		profile = new FacePamphletProfile(name, status, filename);
 		
 		return profile;
 	}
