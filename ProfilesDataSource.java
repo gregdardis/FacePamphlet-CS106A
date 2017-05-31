@@ -92,9 +92,9 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 			System.out.println(e.getMessage());
 			return null;
 		}
-		String filename = Profiles.IMAGE_DIRECTORY + name + ".jpg";
-		db.readPicture(Profiles.TABLE_NAME, Profiles.COLUMN_IMAGE, filename, Profiles.COLUMN_NAME + " = " + Database.quotations(name));
-		profile = new FacePamphletProfile(name, status, filename);
+		db.readPicture(Profiles.TABLE_NAME, Profiles.COLUMN_IMAGE, Profiles.IMAGE_DIRECTORY, name + ".jpg", Profiles.COLUMN_NAME + " = " + Database.quotations(name));
+		String filepath = Profiles.IMAGE_DIRECTORY + name + ".jpg";
+		profile = new FacePamphletProfile(name, status, filepath);
 		
 		return profile;
 	}

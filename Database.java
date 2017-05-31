@@ -121,13 +121,14 @@ public class Database implements DatabaseConstants {
 		return fileContent;
 	}
 	
-	public void readPicture(String tableName, String pictureColumn, String filepath, String whereCondition) {
+	public void readPicture(String tableName, String pictureColumn, String imageDirectory, String imageFilename, String whereCondition) {
 		String sql = "SELECT " + pictureColumn + " FROM " + tableName + " WHERE " + whereCondition;
 		ResultSet rs = executeSQLForResult(sql);
 		FileOutputStream fos = null;
 		
 		try {
-			File file = new File(filepath);
+			new File(imageDirectory).mkdirs();
+			File file = new File(imageDirectory + imageFilename);
 			fos = new FileOutputStream(file);
 			
 			if (rs.next()) {
