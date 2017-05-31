@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.*;
 
 // TODO: close database upon pressing the exit button.
@@ -90,6 +93,31 @@ public class Database implements DatabaseConstants {
 		sb.append(values[columns.length - 1]);
 		String sql = "UPDATE " + tableName + " SET " + sb.toString() + " WHERE " + whereCondition;
 		executeSQLNoResult(sql);
+	}
+	
+	public void updatePicture(String tableName, String pictureColumn, String filepath, String whereCondition) {
+		String sql = "UPDATE " + tableName + " SET " + pictureColumn + " = ? WHERE " + whereCondition;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setBytes(1, readFile(filepath));
+			
+			pstmt.executeUpdate();
+			System.out.println("Stored the file in the BLOB column");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/** Converts an image file into a byte array and returns it. */
+	private byte[] readFile(String filepath) {
+		File file = new File(filepath);
+		byte[] fileContent = null;
+		try {
+			fileContent = Files.readAllBytes(file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileContent;
 	}
 	
 	/**

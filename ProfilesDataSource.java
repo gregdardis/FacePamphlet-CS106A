@@ -4,6 +4,8 @@ import java.util.Map;
 
 import acm.graphics.GImage;
 
+/* TODO: Open filename and store image as Blob in database. Take Blob from db and create object with corresponding image! */
+
 /** 
  * This class handles the conversion between data stored in java objects and the SQLite database.
  * Contains methods for querying and updating the data in the database for the "Profiles" table. 
@@ -45,11 +47,9 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 	}
 	
 	/** Updates the Profiles table with the profile's picture. */
-	public void changePicture(FacePamphletProfile profile, String filename) {
-		String[] columns = { Profiles.COLUMN_IMAGE };
-		String[] values = { };
+	public void updatePicture(FacePamphletProfile profile, String filename) {
 		String whereCondition = Profiles.COLUMN_NAME + " = " + Database.quotations(profile.getName());
-		db.updateRecord(Profiles.TABLE_NAME, columns, values, whereCondition);
+		db.updatePicture(Profiles.TABLE_NAME, Profiles.COLUMN_IMAGE, "images/" + filename, whereCondition);
 	}
 	
 //	/** 

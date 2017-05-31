@@ -345,13 +345,15 @@ public class FacePamphlet extends Program
     @Override
     public void changePicture() {
     	if (fieldIsNotEmpty(changePictureField)) {
+    		String filename = changePictureField.getText();
 			if (currentProfile != null) {
-				if (!currentProfile.setImageFilename(changePictureField.getText())) {
-					badImageNameMessage(changePictureField.getText());
+				if (!currentProfile.setImageFilename(filename)) {
+					badImageNameMessage(filename);
 					return;
 				}
 				canvas.displayProfile(currentProfile);
 				existingImageMessage();
+				profilesDataSource.updatePicture(currentProfile, filename);
 			} else if (currentProfile == null) {
 				noProfileSelectedCannotChangePictureMessage();
 			}
