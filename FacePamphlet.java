@@ -92,15 +92,17 @@ public class FacePamphlet extends Program
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
 					if (database.containsProfile(nameField.getText())) {
-						profileAlreadyExistsMessage();
+						System.out.println("Thing one");
 						currentProfile = database.getProfile(nameField.getText());
 						canvas.displayProfile(currentProfile);
+						profileAlreadyExistsMessage();
 					} else {
+						System.out.println("Thing two");
 						FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
 						database.addProfile(profile);
-						addNewProfileMessage(profile);
 						currentProfile = profile;
 						canvas.displayProfile(currentProfile);
+						addNewProfileMessage(profile);
 					}
 				}
 				else {
@@ -118,7 +120,7 @@ public class FacePamphlet extends Program
 	
 	/** Called if the user tries to create a profile with a name that already exists. */
 	private void profileAlreadyExistsMessage() {
-		canvas.showMessage("A profile with that name already exists.");
+		canvas.showMessage("A profile with that name already exists. Here it is.");
 	}
 	
 	/** Called when a new profile is created. */
@@ -137,10 +139,10 @@ public class FacePamphlet extends Program
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
 					if (database.containsProfile(nameField.getText())) {
-						profileDeletedMessage(nameField.getText());
 						database.deleteProfile(nameField.getText());
 						currentProfile = null;
 						canvas.displayProfile(currentProfile);
+						profileDeletedMessage(nameField.getText());
 					} else {
 						profileDoesNotExistMessage(nameField.getText());
 					}
@@ -175,9 +177,9 @@ public class FacePamphlet extends Program
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
 					if (database.containsProfile(nameField.getText())) {
-						lookedUpUserMessage(nameField.getText());
 						currentProfile = database.getProfile(nameField.getText());
 						canvas.displayProfile(currentProfile);
+						lookedUpUserMessage(nameField.getText());
 					} else {
 						profileDoesNotExistMessage(nameField.getText());
 						currentProfile = null;
@@ -310,8 +312,8 @@ public class FacePamphlet extends Program
     public void changeStatus() {
 			if (currentProfile != null) {
 				currentProfile.setStatus(changeStatusField.getText());
-				updatedStatusMessage(changeStatusField.getText());
 				canvas.displayProfile(currentProfile);
+				updatedStatusMessage(changeStatusField.getText());
 				profilesDataSource.changeStatus(currentProfile);
 			} else if (currentProfile == null) {
 				noProfileSelectedCannotChangeStatusMessage();
@@ -384,10 +386,10 @@ public class FacePamphlet extends Program
 				if (!currentProfile.getName().equals(addFriendField.getText())) {
 					if (database.containsProfile(addFriendField.getText())) {
 						if (currentProfile.addFriend(addFriendField.getText())) {
-							friendAddedMessage(addFriendField.getText());
 							FacePamphletProfile profile = database.getProfile(addFriendField.getText());
 							profile.addFriend(currentProfile.getName());
 							canvas.displayProfile(currentProfile);
+							friendAddedMessage(addFriendField.getText());
 						} else {
 							alreadyFriendsMessage(addFriendField.getText());
 						}
