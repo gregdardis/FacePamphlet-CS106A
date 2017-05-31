@@ -130,10 +130,14 @@ public class Database implements DatabaseConstants {
 		try {
 			File file = new File(filepath);
 			fos = new FileOutputStream(file);
-			System.out.println("Writing BLOB to file " + file.getAbsolutePath());
 			
 			if (rs.next()) {
 				InputStream input = rs.getBinaryStream(pictureColumn);
+				if (input == null) {
+					fos.close();
+					rs.close();
+					return;
+				}
 				byte[] buffer = new byte[1024];
 				while (input.read(buffer) > 0) {
 					fos.write(buffer);
