@@ -20,4 +20,15 @@ public class FriendsDataSource implements DatabaseConstants {
 		);
 	}
 	
+	/**
+	 * Adds a friend to the Friends table.
+	 * friend1 column contains the name of the person who added the friend,
+	 * and the friend2 column contains the name of the person who was added.
+	 */
+	public void addFriend(FacePamphletProfile currentProfile, String name) {
+		String[] columns = { Friends.COLUMN_FRIEND1, Friends.COLUMN_FRIEND2 };
+		String[] values = { Database.quotations(currentProfile.getName()), Database.quotations(name) };
+		db.insertRecord(Friends.TABLE_NAME, columns, values);
+	}
+	
 }

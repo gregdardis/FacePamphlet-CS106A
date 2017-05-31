@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.sql.*;
 
 // TODO: close database upon pressing the exit button.
-// TODO: Images.
 // TODO: Friends stuff with database.
 // TODO: Deal with adding people who already exist? I think the functionality might already be fine. Double check that.
 

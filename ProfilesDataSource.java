@@ -4,8 +4,6 @@ import java.util.Map;
 
 import acm.graphics.GImage;
 
-/* TODO: Open filename and store image as Blob in database. Take Blob from db and create object with corresponding image! */
-
 /** 
  * This class handles the conversion between data stored in java objects and the SQLite database.
  * Contains methods for querying and updating the data in the database for the "Profiles" table. 
