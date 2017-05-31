@@ -64,14 +64,14 @@ public class FacePamphletProfile implements FacePamphletConstants {
 	 * If the filename is valid, changes imageFilename to be filename, and makes
 	 * a new GImage and sets image equal to this new GImage.
 	 */ 
-	public void setImageFilename(String filename) {
+	public boolean setImageFilename(String filename) {
 		try {
-				image = new GImage(filename);
-				imageFilename = filename;
-				this.imageFilename = filename;
+			image = new GImage(filename);
 		} catch (ErrorException e) {
-			System.out.println("SHITTTTTTTTTT EXCEPTION");
+			return false;
 		}
+		this.imageFilename = filename;	
+		return true;
 	}
 	
 	/** 

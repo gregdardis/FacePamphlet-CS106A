@@ -344,8 +344,7 @@ public class FacePamphlet extends Program
     public void changePicture() {
     	if (fieldIsNotEmpty(changePictureField)) {
 			if (currentProfile != null) {
-				currentProfile.setImageFilename(changePictureField.getText());
-				if (currentProfile.getImage() == null) {
+				if (!currentProfile.setImageFilename(changePictureField.getText())) {
 					badImageNameMessage(changePictureField.getText());
 					return;
 				}
