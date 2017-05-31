@@ -104,7 +104,6 @@ public class Database implements DatabaseConstants {
 			pstmt.setBytes(1, readFile(filepath));
 			
 			pstmt.executeUpdate();
-			System.out.println("Stored the file in the BLOB column");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}

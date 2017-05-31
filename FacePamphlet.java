@@ -92,12 +92,10 @@ public class FacePamphlet extends Program
 			public void actionPerformed(ActionEvent e) {
 				if (fieldIsNotEmpty(nameField)) {
 					if (database.containsProfile(nameField.getText())) {
-						System.out.println("Thing one");
 						currentProfile = database.getProfile(nameField.getText());
 						canvas.displayProfile(currentProfile);
 						profileAlreadyExistsMessage();
 					} else {
-						System.out.println("Thing two");
 						FacePamphletProfile profile = new FacePamphletProfile(nameField.getText());
 						database.addProfile(profile);
 						currentProfile = profile;

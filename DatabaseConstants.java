@@ -9,7 +9,7 @@ public interface DatabaseConstants {
 		public static final String COLUMN_NAME_CREATION = COLUMN_NAME + " TEXT PRIMARY KEY";
 		public static final String COLUMN_STATUS_CREATION = COLUMN_STATUS + " TEXT";
 		public static final String COLUMN_IMAGE_CREATION = COLUMN_IMAGE + " BLOB";
-		public static final String IMAGE_DIRECTORY = "images/";
+		public static final String IMAGE_DIRECTORY = "savedImages/";
 	}
 	
 	public static class Friends {
