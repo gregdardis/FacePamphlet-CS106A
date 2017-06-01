@@ -14,14 +14,15 @@ public class FriendsDataSource implements DatabaseConstants {
 		this.db = db;
 	}
 	
+	/** Creates the Friends table. */
 	public void createTable() {
-		db.createTableWithDeleteCascade(
+		db.createTable(
 				Friends.TABLE_NAME, 
 				Friends.COLUMN_FRIEND1_CREATION, 
 				Friends.COLUMN_FRIEND2_CREATION, 
 				Friends.PRIMARY_KEY_INITIALIZATION,
-				"FOREIGN KEY (friend1) REFERENCES Profiles(name) ON DELETE CASCADE,\nFOREIGN KEY (friend2) REFERENCES Profiles(name)"
-//				"CONSTRAINT fk_Profiles \nFOREIGN KEY (friend1, friend2) REFERENCES Profiles(name, name)"
+				Friends.FOREIGN_KEY_INITIALIZATION_FRIEND1,
+				Friends.FOREIGN_KEY_INITIALIZATION_FRIEND2
 		);
 	}
 	
@@ -36,7 +37,9 @@ public class FriendsDataSource implements DatabaseConstants {
 		db.insertRecord(Friends.TABLE_NAME, columns, values);
 	}
 	
-	
+	/** Called upon starting the application. 
+	 * Gets the friendsList for a profile and returns it. 
+	 */
 	public ArrayList<String> getFriendsList(FacePamphletProfile profile) {
 		ArrayList<String> friendsList = new ArrayList<String>();
 		

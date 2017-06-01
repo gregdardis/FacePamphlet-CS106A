@@ -79,7 +79,7 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 	
 	/** 
 	 * Called upon starting the app, uses a ResultSet to make a FacePamphletProfile
-	 *  and return it to be used in the database HashMap.
+	 * and return it to be used in the database HashMap.
 	 */
 	private FacePamphletProfile makeProfile(ResultSet rs) {
 		FacePamphletProfile profile = null;

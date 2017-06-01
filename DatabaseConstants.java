@@ -19,10 +19,7 @@ public interface DatabaseConstants {
 		public static final String COLUMN_FRIEND1_CREATION = COLUMN_FRIEND1 + " TEXT";
 		public static final String COLUMN_FRIEND2_CREATION = COLUMN_FRIEND2 + " TEXT";
 		public static final String PRIMARY_KEY_INITIALIZATION = "PRIMARY KEY (" + COLUMN_FRIEND1 + ", " + COLUMN_FRIEND2 + ")";
-		public static final String FOREIGN_KEY_INITIALIZATION_FRIEND1 = "FOREIGN KEY (" + COLUMN_FRIEND1 + ") REFERENCES " + Profiles.TABLE_NAME + "(" + Profiles.COLUMN_NAME + ")";
-		public static final String FOREIGN_KEY_INITIALIZATION_FRIEND2 = "FOREIGN KEY (" + COLUMN_FRIEND2 + ") REFERENCES " + Profiles.TABLE_NAME + "(" + Profiles.COLUMN_NAME + ")";
-		public static final String FOREIGN_KEY_INITIALIZATION = "CONSTRAINT fk_" + Profiles.TABLE_NAME + "\n" + FOREIGN_KEY_INITIALIZATION_FRIEND1 + "\n" + FOREIGN_KEY_INITIALIZATION_FRIEND2;
-		
-		public static final String SECOND_FOREIGN_KEY_INITIALIZATION = "CONSTRAINT fk_Profiles \nFOREIGN KEY (friend1, friend2) REFERENCES Profiles(name, name))";
+		public static final String FOREIGN_KEY_INITIALIZATION_FRIEND1 = "FOREIGN KEY (" + COLUMN_FRIEND1 + ") REFERENCES " + Profiles.TABLE_NAME + "(" + Profiles.COLUMN_NAME + ") ON DELETE CASCADE";
+		public static final String FOREIGN_KEY_INITIALIZATION_FRIEND2 = "FOREIGN KEY (" + COLUMN_FRIEND2 + ") REFERENCES " + Profiles.TABLE_NAME + "(" + Profiles.COLUMN_NAME + ") ON DELETE CASCADE";
 	}
 }
