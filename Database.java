@@ -34,8 +34,9 @@ public class Database implements DatabaseConstants {
 			System.out.println("Connection to SQLite database has been established.");
 		} catch(SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
+			System.out.println("It was this one");
 		}
-	}
+	} 
 	
 	/** Closes the connection to the SQLite database */
 	public void close() {
@@ -63,7 +64,7 @@ public class Database implements DatabaseConstants {
 	 * Example: name TEXT PRIMARY KEY
 	 */
 	public void createTableWithDeleteCascade(String tableName, String...strings) {
-		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + "(\n" + String.join(",\n", strings) + "\n ON DELETE CASCADE);";
+		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + "(\n" + String.join(",\n", strings) + " ON DELETE CASCADE);";
 		System.out.println(sql);
 		executeSQLNoResult(sql);
 	}
