@@ -15,7 +15,7 @@ public class FriendsDataSource implements DatabaseConstants {
 	}
 	
 	public void createTable() {
-		db.createTable(
+		db.createTableWithDeleteCascade(
 				Friends.TABLE_NAME, 
 				Friends.COLUMN_FRIEND1_CREATION, 
 				Friends.COLUMN_FRIEND2_CREATION, 

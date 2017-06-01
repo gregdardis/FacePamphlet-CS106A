@@ -57,6 +57,17 @@ public class Database implements DatabaseConstants {
 		executeSQLNoResult(sql);
 	}
 	
+	/**
+	 * Creates a table with an on delete cascade.
+	 * @param strings Columns in the table with their name and type separated by commas from the next column in the table.
+	 * Example: name TEXT PRIMARY KEY
+	 */
+	public void createTableWithDeleteCascade(String tableName, String...strings) {
+		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + "(\n" + String.join(",\n", strings) + "\n ON DELETE CASCADE);";
+		System.out.println(sql);
+		executeSQLNoResult(sql);
+	}
+	
 	/** 
 	 * Inserts a record into a table.
 	 * @param tableName Name of the table to insert a record into.
