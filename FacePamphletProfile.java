@@ -17,7 +17,6 @@ import java.util.*;
 
 public class FacePamphletProfile implements FacePamphletConstants {
 	
-	/* Instance variables */
 	private String name;
 	private String status = "";
 	private String imageFilename = "";

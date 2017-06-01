@@ -10,7 +10,6 @@ import java.util.*;
 
 public class ProfileManager implements FacePamphletConstants {
 	
-	/* Instance variables */
 	private Map<String, FacePamphletProfile> database;
 	private ProfilesDataSource profilesDataSource;
 	

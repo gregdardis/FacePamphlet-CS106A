@@ -11,10 +11,8 @@ import org.sqlite.SQLiteConfig;
 
 public class Database implements DatabaseConstants {
 	
-	/* Instance variables */
 	private Connection connection;
 	
-	/* Constants */
 	private static final String URL = "jdbc:sqlite:FacePamphlet.db";
 	private static final String DRIVER = "org.sqlite.JDBC";
 	

@@ -62,6 +62,13 @@ public class FacePamphlet extends Program
 		noProfileSelectedMessage();
 	}
 	
+	/** Called upon pressing the X in the top right corner to close the application. */
+	@Override
+	public void destroy() {
+		db.close();
+		super.destroy();
+	}
+	
 	/** Called before any profiles have been added, upon startup of the app. */
 	private void noProfileSelectedMessage() {
 		canvas.showMessage("No profile selected. Please look one up or add a new one.");
