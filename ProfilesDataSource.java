@@ -4,17 +4,17 @@ import java.util.Map;
 
 import acm.graphics.GImage;
 
-/* TODO: Open filename and store image as Blob in database. Take Blob from db and create object with corresponding image! */
-
 /** 
  * This class handles the conversion between data stored in java objects and the SQLite database.
  * Contains methods for querying and updating the data in the database for the "Profiles" table. 
  */
 public class ProfilesDataSource implements DatabaseConstants, FacePamphletConstants {
 	private Database db;
+	private FriendsDataSource friendsDataSource;
 	
-	public ProfilesDataSource(Database db) {
+	public ProfilesDataSource(Database db, FriendsDataSource friendsDataSource) {
 		this.db = db;
+		this.friendsDataSource = friendsDataSource;
 	}
 	
 	/** Creates the Profiles table */
@@ -79,7 +79,7 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 	
 	/** 
 	 * Called upon starting the app, uses a ResultSet to make a FacePamphletProfile
-	 *  and return it to be used in the database HashMap.
+	 * and return it to be used in the database HashMap.
 	 */
 	private FacePamphletProfile makeProfile(ResultSet rs) {
 		FacePamphletProfile profile = null;
@@ -95,7 +95,7 @@ public class ProfilesDataSource implements DatabaseConstants, FacePamphletConsta
 		db.readPicture(Profiles.TABLE_NAME, Profiles.COLUMN_IMAGE, Profiles.IMAGE_DIRECTORY, name + ".jpg", Profiles.COLUMN_NAME + " = " + Database.quotations(name));
 		String filepath = Profiles.IMAGE_DIRECTORY + name + ".jpg";
 		profile = new FacePamphletProfile(name, status, filepath);
-		
+		profile.setFriendList(friendsDataSource.getFriendsList(profile));
 		return profile;
 	}
 }

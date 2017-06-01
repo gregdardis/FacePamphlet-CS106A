@@ -37,8 +37,8 @@ public class FacePamphlet extends Program
 	private ProfileManager database;
 	private FacePamphletCanvas canvas = new FacePamphletCanvas();
 	private Database db = new Database();
-	private ProfilesDataSource profilesDataSource = new ProfilesDataSource(db);
 	private FriendsDataSource friendsDataSource = new FriendsDataSource(db);
+	private ProfilesDataSource profilesDataSource = new ProfilesDataSource(db, friendsDataSource);
 
 	/**
 	 * This method has the responsibility for initializing the interactors in the application
@@ -382,19 +382,21 @@ public class FacePamphlet extends Program
     @Override
     public void addFriend() {
     	if (fieldIsNotEmpty(addFriendField)) {
+    		String friendToAdd = addFriendField.getText();
 			if (currentProfile != null) {
-				if (!currentProfile.getName().equals(addFriendField.getText())) {
-					if (database.containsProfile(addFriendField.getText())) {
-						if (currentProfile.addFriend(addFriendField.getText())) {
-							FacePamphletProfile profile = database.getProfile(addFriendField.getText());
+				if (!currentProfile.getName().equals(friendToAdd)) {
+					if (database.containsProfile(friendToAdd)) {
+						if (currentProfile.addFriend(friendToAdd)) {
+							FacePamphletProfile profile = database.getProfile(friendToAdd);
 							profile.addFriend(currentProfile.getName());
 							canvas.displayProfile(currentProfile);
-							friendAddedMessage(addFriendField.getText());
+							friendAddedMessage(friendToAdd);
+							friendsDataSource.addFriendToDatabase(currentProfile, friendToAdd);
 						} else {
-							alreadyFriendsMessage(addFriendField.getText());
+							alreadyFriendsMessage(friendToAdd);
 						}
 					} else {
-						profileDoesNotExistCannotAddFriendMessage(addFriendField.getText());
+						profileDoesNotExistCannotAddFriendMessage(friendToAdd);
 					}
 				} else {
 					cannotAddSelfAsFriendMessage();

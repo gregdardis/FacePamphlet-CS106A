@@ -120,6 +120,10 @@ public class FacePamphletProfile implements FacePamphletConstants {
 		}
 		return false;
 	}
+	
+	public void setFriendList(ArrayList<String> friendList) {
+		this.friendList = friendList;
+	}
 
 	/** 
 	 * This method returns an iterator over the list of friends 

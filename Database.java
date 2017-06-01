@@ -5,14 +5,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.sql.*;
 
-// TODO: close database upon pressing the exit button.
-// TODO: Images.
-// TODO: Friends stuff with database.
-// TODO: Deal with adding people who already exist? I think the functionality might already be fine. Double check that.
+import org.sqlite.SQLiteConfig;
 
-/* Problems with images:
- * updateRecord takes a String array, not a Blob. How do I fix this? Do I make a separate updateRecord which takes a Blob?
- * Does my method for getting a pixel array and putting it into a byte array and vice versa, work? */
+// TODO: close database upon pressing the exit button.
 
 public class Database implements DatabaseConstants {
 	
@@ -21,16 +16,19 @@ public class Database implements DatabaseConstants {
 	
 	/* Constants */
 	private static final String URL = "jdbc:sqlite:FacePamphlet.db";
+	private static final String DRIVER = "org.sqlite.JDBC";
 	
-	/** Connects to the SQLite database */
+	/** Connects to the SQLite database with foreign keys enforced. */
 	public void connect() {
 		try {
-			connection = DriverManager.getConnection(URL);
-			System.out.println("Connection to SQLite database has been established.");
-		} catch(SQLException e) {
+			Class.forName(DRIVER);
+			SQLiteConfig config = new SQLiteConfig();
+			config.enforceForeignKeys(true);
+			connection = DriverManager.getConnection(URL, config.toProperties());
+		} catch(SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-	}
+	} 
 	
 	/** Closes the connection to the SQLite database */
 	public void close() {
@@ -97,6 +95,7 @@ public class Database implements DatabaseConstants {
 		executeSQLNoResult(sql);
 	}
 	
+	/** Updates the image column in the Profiles table of the database. */
 	public void updatePicture(String tableName, String pictureColumn, String filepath, String whereCondition) {
 		String sql = "UPDATE " + tableName + " SET " + pictureColumn + " = ? WHERE " + whereCondition;
 		try {
@@ -109,7 +108,7 @@ public class Database implements DatabaseConstants {
 		}
 	}
 	
-	/** Converts an image file into a byte array and returns it. */
+	/** Converts an image file into a byte array and returns it. Used for storing Blobs in the database. */
 	private byte[] readFile(String filepath) {
 		File file = new File(filepath);
 		byte[] fileContent = null;
@@ -121,6 +120,7 @@ public class Database implements DatabaseConstants {
 		return fileContent;
 	}
 	
+	/** Reads a picture from the database to a file in path imageDirectory with filename imageFilename. */
 	public void readPicture(String tableName, String pictureColumn, String imageDirectory, String imageFilename, String whereCondition) {
 		String sql = "SELECT " + pictureColumn + " FROM " + tableName + " WHERE " + whereCondition;
 		ResultSet rs = executeSQLForResult(sql);
@@ -200,7 +200,7 @@ public class Database implements DatabaseConstants {
 	 * Executes an SQL statement and returns a ResultSet which can be iterated over.
 	 * Example: Selecting from a table.
 	 * */
-	private ResultSet executeSQLForResult(String sql) {
+	public ResultSet executeSQLForResult(String sql) {
 		ResultSet rs = null;
 		try {
 			Statement stmt = connection.createStatement();
