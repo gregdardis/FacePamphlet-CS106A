@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.sql.*;
 
+import org.sqlite.SQLiteConfig;
+
 // TODO: close database upon pressing the exit button.
 // TODO: Friends stuff with database.
 // TODO: Deal with adding people who already exist? I think the functionality might already be fine. Double check that.
@@ -20,13 +22,17 @@ public class Database implements DatabaseConstants {
 	
 	/* Constants */
 	private static final String URL = "jdbc:sqlite:FacePamphlet.db";
+	private static final String DRIVER = "org.sqlite.JDBC";
 	
 	/** Connects to the SQLite database */
 	public void connect() {
 		try {
-			connection = DriverManager.getConnection(URL);
+			Class.forName(DRIVER);
+			SQLiteConfig config = new SQLiteConfig();
+			config.enforceForeignKeys(true);
+			connection = DriverManager.getConnection(URL, config.toProperties());
 			System.out.println("Connection to SQLite database has been established.");
-		} catch(SQLException e) {
+		} catch(SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 	}
