@@ -62,7 +62,7 @@ public class FacePamphlet extends Program
 		noProfileSelectedMessage();
 	}
 	
-	/** Called upon pressing the X in the top right corner to close the application. */
+	/** Called upon closing the application. */
 	@Override
 	public void destroy() {
 		db.close();

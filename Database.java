@@ -24,7 +24,8 @@ public class Database implements DatabaseConstants {
 			config.enforceForeignKeys(true);
 			connection = DriverManager.getConnection(URL, config.toProperties());
 		} catch(SQLException | ClassNotFoundException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Error connecting");
+			e.printStackTrace();
 		}
 	} 
 	
