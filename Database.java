@@ -7,8 +7,6 @@ import java.sql.*;
 
 import org.sqlite.SQLiteConfig;
 
-// TODO: close database upon pressing the exit button.
-
 public class Database implements DatabaseConstants {
 	
 	private Connection connection;
